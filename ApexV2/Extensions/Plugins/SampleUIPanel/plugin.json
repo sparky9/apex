@@ -1,0 +1,17 @@
+{
+  "id": "770e8400-e29b-41d4-a716-446655440002",
+  "name": "Sample UI Panel",
+  "version": "1.0.0",
+  "description": "A sample UI panel plugin for testing and demonstration",
+  "author": "APEX Development Team",
+  "website": "https://apex-trading.com",
+  "assemblyFile": "SamplePlugins.dll",
+  "typeName": "ApexV2.Extensions.Plugins.SampleUIPanelPlugin",
+  "requiredPermissions": 4,
+  "dependencies": [],
+  "supportedPlatforms": ["Win32NT"],
+  "minimumApexVersion": "2.0.0",
+  "maximumApexVersion": "3.0.0",
+  "tags": ["ui", "panel", "sample", "demo"],
+  "category": "UI Panels"
+}

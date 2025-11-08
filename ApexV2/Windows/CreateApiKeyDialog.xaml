@@ -1,0 +1,79 @@
+<Window x:Class="ApexV2.Extensions.API.CreateApiKeyDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create API Key" 
+        Height="450" Width="500"
+        WindowStartupLocation="CenterOwner"
+        Background="#FF2D2D30"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF3F3F46"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF464647"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF007ACC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF3F3F46"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF464647"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#FF3F3F46"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF464647"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Name -->
+        <TextBlock Grid.Row="0" Text="Name:" FontWeight="Bold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" x:Name="NameTextBox" Margin="0,0,0,15"/>
+
+        <!-- Description -->
+        <TextBlock Grid.Row="2" Text="Description:" FontWeight="Bold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="3" x:Name="DescriptionTextBox" Margin="0,0,0,15" 
+                 TextWrapping="Wrap" AcceptsReturn="True" Height="60"/>
+
+        <!-- Expiration -->
+        <StackPanel Grid.Row="4" Margin="0,0,0,15">
+            <TextBlock Text="Expiration Date:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <DatePicker x:Name="ExpirationDatePicker"/>
+        </StackPanel>
+
+        <!-- Permissions -->
+        <GroupBox Grid.Row="4" Header="Permissions" Foreground="White" Margin="0,10,0,15">
+            <ListBox x:Name="PermissionsListBox" Height="120" SelectionMode="Multiple"/>
+        </GroupBox>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="CreateButton" Content="Create" Click="CreateButton_Click" 
+                    Background="#FF007ACC" Padding="15,5" Margin="0,0,10,0"/>
+            <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Padding="15,5"/>
+        </StackPanel>
+    </Grid>
+</Window>

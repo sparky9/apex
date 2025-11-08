@@ -1,0 +1,296 @@
+#nullable disable
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Extensions.Logging;
+
+namespace ApexV2.Extensions.API
+{
+    // Simple logger wrapper for API services (duplicate but needed for this namespace)
+    public class ApiLogger<T> : ILogger<T>
+    {
+        private readonly ILogger _baseLogger;
+
+        public ApiLogger(ILogger baseLogger) => _baseLogger = baseLogger;
+
+        public IDisposable BeginScope<TState>(TState state) => _baseLogger.BeginScope(state);
+        public bool IsEnabled(LogLevel logLevel) => _baseLogger.IsEnabled(logLevel);
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) 
+            => _baseLogger.Log(logLevel, eventId, state, exception, formatter);
+    }
+
+namespace ApexV2.Extensions.API
+{
+    public partial class ApiManagerWindow : Window
+    {
+        private readonly ApiManager _apiManager;
+        private readonly ILogger<ApiManagerWindow> _logger;
+
+        public ApiManagerWindow(ApiManager apiManager = null, ILogger<ApiManagerWindow> logger = null)
+        {
+            InitializeComponent();
+            _apiManager = apiManager ?? new ApiManager();
+            _logger = logger ?? new TestLogger<ApiManagerWindow>();
+            
+            Loaded += OnWindowLoaded;
+        }
+
+        private async void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            await LoadApiStatusAsync();
+            await LoadApiKeysAsync();
+        }
+
+        private async Task LoadApiStatusAsync()
+        {
+            try
+            {
+                var status = _apiManager.GetApiStatus();
+                
+                // Update status display
+                StatusTextBlock.Text = status["Initialized"].ToString() == "True" ? "Online" : "Offline";
+                VersionTextBlock.Text = status["Version"].ToString();
+                ServicesCountTextBlock.Text = status["ServicesCount"].ToString();
+                TimestampTextBlock.Text = status["Timestamp"].ToString();
+
+                // Load services list
+                if (status.ContainsKey("Services"))
+                {
+                    var services = status["Services"] as List<string>;
+                    ServicesListBox.ItemsSource = services;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading API status");
+                MessageBox.Show($"Error loading API status: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task LoadApiKeysAsync()
+        {
+            try
+            {
+                var apiKeyService = _apiManager.GetApiKeyService();
+                if (apiKeyService != null)
+                {
+                    var apiKeys = await apiKeyService.GetApiKeysAsync();
+                    ApiKeysDataGrid.ItemsSource = apiKeys;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading API keys");
+                MessageBox.Show($"Error loading API keys: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void CreateApiKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new CreateApiKeyDialog();
+                if (dialog.ShowDialog() == true)
+                {
+                    var apiKeyService = _apiManager.GetApiKeyService();
+                    if (apiKeyService != null)
+                    {
+                        var request = new ApiKeyRequest
+                        {
+                            Name = dialog.KeyName,
+                            Description = dialog.KeyDescription,
+                            Permissions = dialog.SelectedPermissions,
+                            ExpiresAt = dialog.ExpirationDate
+                        };
+
+                        var result = await apiKeyService.CreateApiKeyAsync(request);
+                        
+                        MessageBox.Show($"API Key created successfully!\nKey: {result.Key}", "Success", 
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        
+                        await LoadApiKeysAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating API key");
+                MessageBox.Show($"Error creating API key: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void RevokeApiKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (ApiKeysDataGrid.SelectedItem is ApiKeyResponse selectedKey)
+                {
+                    var result = MessageBox.Show($"Are you sure you want to revoke the API key '{selectedKey.Name}'?", 
+                        "Confirm Revocation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        var apiKeyService = _apiManager.GetApiKeyService();
+                        if (apiKeyService != null)
+                        {
+                            await apiKeyService.RevokeApiKeyAsync(selectedKey.Id);
+                            MessageBox.Show("API Key revoked successfully!", "Success", 
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            await LoadApiKeysAsync();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select an API key to revoke.", "No Selection", 
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error revoking API key");
+                MessageBox.Show($"Error revoking API key: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            await LoadApiStatusAsync();
+            await LoadApiKeysAsync();
+        }
+
+        private async void TestApiButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (ApiKeysDataGrid.SelectedItem is ApiKeyResponse selectedKey)
+                {
+                    var isValid = await _apiManager.ValidateApiKeyAsync(selectedKey.Key);
+                    var message = isValid ? "API Key is valid and working!" : "API Key validation failed.";
+                    var icon = isValid ? MessageBoxImage.Information : MessageBoxImage.Warning;
+                    
+                    MessageBox.Show(message, "API Key Test", MessageBoxButton.OK, icon);
+                }
+                else
+                {
+                    MessageBox.Show("Please select an API key to test.", "No Selection", 
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error testing API key");
+                MessageBox.Show($"Error testing API key: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Create a logger for ApiHealthCheck
+                var healthLogger = new ApiLogger<ApiHealthCheck>(_logger);
+                var healthCheck = new ApiHealthCheck(_apiManager, healthLogger);
+                var health = await healthCheck.CheckHealthAsync();
+                
+                var status = health["Status"].ToString();
+                var message = $"API Health Status: {status}\n\nTimestamp: {health["Timestamp"]}";
+                
+                if (health.ContainsKey("Errors"))
+                {
+                    var errors = health["Errors"] as List<string>;
+                    if (errors.Count > 0)
+                    {
+                        message += $"\n\nErrors:\n{string.Join("\n", errors)}";
+                    }
+                }
+                
+                var icon = status == "Healthy" ? MessageBoxImage.Information : MessageBoxImage.Warning;
+                MessageBox.Show(message, "Health Check", MessageBoxButton.OK, icon);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error performing health check");
+                MessageBox.Show($"Error performing health check: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+    }
+
+    public partial class CreateApiKeyDialog : Window
+    {
+        public string KeyName { get; private set; }
+        public string KeyDescription { get; private set; }
+        public List<string> SelectedPermissions { get; private set; }
+        public DateTime? ExpirationDate { get; private set; }
+
+        public CreateApiKeyDialog()
+        {
+            InitializeComponent();
+            LoadPermissions();
+            ExpirationDatePicker.SelectedDate = DateTime.UtcNow.AddMonths(6);
+        }
+
+        private void LoadPermissions()
+        {
+            var permissions = new List<string>
+            {
+                "*", // All permissions
+                "marketData:read",
+                "marketData:write",
+                "watchlist:read",
+                "watchlist:write",
+                "portfolio:read",
+                "scanner:read",
+                "scanner:write",
+                "indicator:read",
+                "indicator:write",
+                "news:read",
+                "alert:read",
+                "alert:write"
+            };
+
+            PermissionsListBox.ItemsSource = permissions;
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                MessageBox.Show("Please enter a name for the API key.", "Validation Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            KeyName = NameTextBox.Text;
+            KeyDescription = DescriptionTextBox.Text;
+            ExpirationDate = ExpirationDatePicker.SelectedDate;
+
+            SelectedPermissions = new List<string>();
+            foreach (var item in PermissionsListBox.SelectedItems)
+            {
+                SelectedPermissions.Add(item.ToString());
+            }
+
+            if (SelectedPermissions.Count == 0)
+            {
+                SelectedPermissions.Add("marketData:read"); // Default permission
+            }
+
+            DialogResult = true;
+            Close();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+    }
+}

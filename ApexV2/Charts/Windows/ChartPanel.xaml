@@ -1,0 +1,232 @@
+<UserControl x:Class="ApexV2.Charts.Windows.ChartPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:charts="clr-namespace:ApexV2.Charts.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Border Background="{DynamicResource Brush.PanelBackground}" 
+            BorderBrush="{DynamicResource Brush.BorderBrush}" 
+            BorderThickness="1" 
+            CornerRadius="3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Chart Header -->
+            <Border Grid.Row="0" Background="{DynamicResource Brush.HeaderBackground}" 
+                    BorderBrush="{DynamicResource Brush.BorderBrush}" 
+                    BorderThickness="0,0,0,1" 
+                    Padding="8,4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Symbol and Info -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="SymbolText" Text="AAPL" 
+                                  FontWeight="Bold" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" 
+                                  Margin="0,0,10,0"/>
+                        <TextBlock x:Name="PriceText" Text="$150.00" 
+                                  FontSize="13" 
+                                  Foreground="{DynamicResource Brush.TextAccent}" 
+                                  Margin="0,0,5,0"/>
+                        <TextBlock x:Name="ChangeText" Text="+2.50 (+1.69%)" 
+                                  FontSize="11" 
+                                  Foreground="Green" 
+                                  VerticalAlignment="Center"/>
+                    </StackPanel>
+                    
+                    <!-- Chart Controls -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Navigation Controls -->
+                        <Button x:Name="BackButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,2,0"
+                               ToolTip="Back (Alt+Left)"
+                               IsEnabled="False"
+                               Click="BackButton_Click">
+                            <Path Width="10" Height="10" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M15,18L9,12L15,6V18Z"/>
+                        </Button>
+                        
+                        <Button x:Name="ForwardButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,5,0"
+                               ToolTip="Forward (Alt+Right)"
+                               IsEnabled="False"
+                               Click="ForwardButton_Click">
+                            <Path Width="10" Height="10" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M9,18V6L15,12L9,18Z"/>
+                        </Button>
+                        
+                        <!-- Zoom Controls -->
+                        <Button x:Name="ZoomInButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,2,0"
+                               ToolTip="Zoom In (+)"
+                               Click="ZoomInButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M12,9V7H8V9H12M12,11H8V13H12V11M7,12H5V8H7V12M19,12H17V8H19V12M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/>
+                        </Button>
+                        
+                        <Button x:Name="ZoomOutButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,2,0"
+                               ToolTip="Zoom Out (-)"
+                               Click="ZoomOutButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M12,11H8V13H12V11M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/>
+                        </Button>
+                        
+                        <Button x:Name="ZoomFitButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,5,0"
+                               ToolTip="Zoom to Fit (Home)"
+                               Click="ZoomFitButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M3,3V21H21V3M5,5H19V19H5V5Z"/>
+                        </Button>
+                        
+                        <!-- Interaction Mode Toggle -->
+                        <ToggleButton x:Name="PanModeButton" 
+                                     Width="22" Height="22" 
+                                     Margin="0,0,2,0"
+                                     ToolTip="Pan Mode (Ctrl+P)"
+                                     IsChecked="True"
+                                     Click="PanModeButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M13,6V11H18V7.75L22.25,12L18,16.25V13H13V18H16.25L12,22.25L7.75,18H11V13H6V16.25L1.75,12L6,7.75V11H11V6H7.75L12,1.75L16.25,6H13Z"/>
+                        </ToggleButton>
+                        
+                        <ToggleButton x:Name="ZoomBoxModeButton" 
+                                     Width="22" Height="22" 
+                                     Margin="0,0,2,0"
+                                     ToolTip="Zoom Box Mode (Ctrl+Z)"
+                                     Click="ZoomBoxModeButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M15.5,14H20.5V16H15.5V14M15.5,4H20.5V6H15.5V4M15.5,9H18.5V11H15.5V9M3.5,14H13.5V16H3.5V14M3.5,4H13.5V6H3.5V4M3.5,9H13.5V11H3.5V9Z"/>
+                        </ToggleButton>
+                        
+                        <!-- Export Button -->
+                        <Button x:Name="ExportButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,5,0"
+                               ToolTip="Export Chart (Ctrl+E)"
+                               Click="ExportButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M23,12L19,8V11H10V13H19V16M1,18V6C1,4.89 1.89,4 3,4H15A2,2 0 0,1 17,6V9H15V6H3V18H15V15H17V18A2,2 0 0,1 15,20H3C1.89,20 1,19.1 1,18Z"/>
+                        </Button>
+                        
+                        <!-- Quick Zoom Presets -->
+                        <ComboBox x:Name="ZoomPresetCombo" 
+                                 Width="70" Height="22" 
+                                 Margin="0,0,5,0"
+                                 ToolTip="Quick Zoom"
+                                 SelectionChanged="ZoomPresetCombo_SelectionChanged">
+                            <ComboBoxItem Content="1H" Tag="1H"/>
+                            <ComboBoxItem Content="4H" Tag="4H"/>
+                            <ComboBoxItem Content="1D" Tag="1D"/>
+                            <ComboBoxItem Content="1W" Tag="1W"/>
+                            <ComboBoxItem Content="1M" Tag="1M"/>
+                            <ComboBoxItem Content="All" Tag="All"/>
+                        </ComboBox>
+                        
+                        <!-- Timeframe Selector -->
+                        <ComboBox x:Name="TimeframeCombo" 
+                                 Width="70" Height="22" 
+                                 Margin="0,0,5,0"
+                                 SelectionChanged="TimeframeCombo_SelectionChanged">
+                            <ComboBoxItem Content="1m" Tag="1m"/>
+                            <ComboBoxItem Content="5m" Tag="5m"/>
+                            <ComboBoxItem Content="15m" Tag="15m"/>
+                            <ComboBoxItem Content="1h" Tag="1h"/>
+                            <ComboBoxItem Content="1d" Tag="1d" IsSelected="True"/>
+                            <ComboBoxItem Content="1w" Tag="1w"/>
+                        </ComboBox>
+                        
+                        <!-- Chart Type Selector -->
+                        <ComboBox x:Name="ChartTypeCombo" 
+                                 Width="100" Height="22" 
+                                 Margin="0,0,5,0"
+                                 SelectionChanged="ChartTypeCombo_SelectionChanged">
+                            <ComboBoxItem Content="Candlestick" Tag="Candlestick" IsSelected="True"/>
+                            <ComboBoxItem Content="Line" Tag="Line"/>
+                            <ComboBoxItem Content="OHLC" Tag="OHLC"/>
+                        </ComboBox>
+                        
+                        <!-- Settings Button -->
+                        <Button x:Name="SettingsButton" 
+                               Width="22" Height="22" 
+                               Margin="0,0,2,0"
+                               ToolTip="Chart Settings"
+                               Click="SettingsButton_Click">
+                            <Path Width="12" Height="12" 
+                                  Fill="{DynamicResource Brush.TextSecondary}"
+                                  Data="M12,8A4,4 0 0,1 8,12A4,4 0 0,1 4,8A4,4 0 0,1 8,4A4,4 0 0,1 12,8M12,8"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!-- Chart Content -->
+            <charts:ChartControl Grid.Row="1" 
+                               x:Name="MainChart" 
+                               Margin="2"/>
+            
+            <!-- Status Bar -->
+            <Border Grid.Row="2" Background="{DynamicResource Brush.StatusBackground}" 
+                    BorderBrush="{DynamicResource Brush.BorderBrush}" 
+                    BorderThickness="0,1,0,0" 
+                    Padding="6,2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Left: Current Values -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="O:" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="10"/>
+                        <TextBlock x:Name="OpenText" Text="149.50" Foreground="{DynamicResource Brush.TextPrimary}" FontSize="10" Margin="2,0,8,0"/>
+                        
+                        <TextBlock Text="H:" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="10"/>
+                        <TextBlock x:Name="HighText" Text="151.20" Foreground="{DynamicResource Brush.TextPrimary}" FontSize="10" Margin="2,0,8,0"/>
+                        
+                        <TextBlock Text="L:" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="10"/>
+                        <TextBlock x:Name="LowText" Text="148.90" Foreground="{DynamicResource Brush.TextPrimary}" FontSize="10" Margin="2,0,8,0"/>
+                        
+                        <TextBlock Text="C:" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="10"/>
+                        <TextBlock x:Name="CloseText" Text="150.00" Foreground="{DynamicResource Brush.TextPrimary}" FontSize="10" Margin="2,0,8,0"/>
+                        
+                        <TextBlock Text="V:" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="10"/>
+                        <TextBlock x:Name="VolumeText" Text="1.2M" Foreground="{DynamicResource Brush.TextPrimary}" FontSize="10" Margin="2,0"/>
+                    </StackPanel>
+                    
+                    <!-- Right: Data Status -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Ellipse x:Name="DataStatusIndicator" Width="6" Height="6" Fill="Green" Margin="0,0,4,0"/>
+                        <TextBlock x:Name="DataStatusText" Text="Live" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="10"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

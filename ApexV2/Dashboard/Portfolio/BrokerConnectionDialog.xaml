@@ -1,0 +1,177 @@
+<Window x:Class="ApexV2.Dashboard.Portfolio.BrokerConnectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Connect to Broker" 
+        Height="500" 
+        Width="600"
+        WindowStartupLocation="CenterParent"
+        Background="#FF1E1E1E"
+        Foreground="White"
+        ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF2D2D30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="#FF2D2D30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FF2D2D30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF0E639C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF1177BB"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF0A5A91"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="CancelButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#FF3F3F46"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF525252"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF2F2F32"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" 
+                   Text="Connect to Broker Account" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,20"
+                   HorizontalAlignment="Center"/>
+        
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Broker Selection -->
+                <TextBlock Text="Select Broker:"/>
+                <ComboBox x:Name="BrokerComboBox" 
+                          SelectedIndex="0"
+                          SelectionChanged="BrokerComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Alpaca Trading" Tag="Alpaca"/>
+                    <ComboBoxItem Content="Interactive Brokers" Tag="IBKR" IsEnabled="False"/>
+                    <ComboBoxItem Content="TD Ameritrade" Tag="TDAmeritrade" IsEnabled="False"/>
+                    <ComboBoxItem Content="TradeStation" Tag="TradeStation" IsEnabled="False"/>
+                </ComboBox>
+                
+                <!-- Alpaca Configuration -->
+                <StackPanel x:Name="AlpacaPanel" Visibility="Visible" Margin="0,20,0,0">
+                    <TextBlock Text="Alpaca Configuration" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                    
+                    <TextBlock Text="Environment:"/>
+                    <ComboBox x:Name="AlpacaEnvironmentComboBox" SelectedIndex="1">
+                        <ComboBoxItem Content="Live Trading" Tag="live"/>
+                        <ComboBoxItem Content="Paper Trading" Tag="paper"/>
+                    </ComboBox>
+                    
+                    <TextBlock Text="API Key:" Margin="0,15,0,5"/>
+                    <TextBox x:Name="AlpacaApiKeyTextBox" 
+                             ToolTip="Enter your Alpaca API Key"/>
+                    
+                    <TextBlock Text="Secret Key:" Margin="0,10,0,5"/>
+                    <PasswordBox x:Name="AlpacaSecretKeyPasswordBox"/>
+                    
+                    <CheckBox x:Name="SaveCredentialsCheckBox" 
+                              Content="Remember credentials (encrypted)" 
+                              Margin="0,15,0,0"/>
+                    
+                    <TextBlock Text="Test Connection:" FontWeight="Bold" Margin="0,20,0,5"/>
+                    <Button x:Name="TestConnectionButton" 
+                            Content="Test Connection" 
+                            Click="TestConnection_Click"
+                            HorizontalAlignment="Left"
+                            Margin="0,5"/>
+                    
+                    <TextBlock x:Name="TestResultTextBlock" 
+                               Margin="0,10,0,0"
+                               Visibility="Collapsed"/>
+                </StackPanel>
+                
+                <!-- Other Broker Panels (Hidden for now) -->
+                <StackPanel x:Name="IBKRPanel" Visibility="Collapsed" Margin="0,20,0,0">
+                    <TextBlock Text="Interactive Brokers Configuration" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Coming Soon..." FontStyle="Italic" Margin="0,10"/>
+                </StackPanel>
+                
+                <StackPanel x:Name="TDAmeritradePanel" Visibility="Collapsed" Margin="0,20,0,0">
+                    <TextBlock Text="TD Ameritrade Configuration" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Coming Soon..." FontStyle="Italic" Margin="0,10"/>
+                </StackPanel>
+                
+                <StackPanel x:Name="TradeStationPanel" Visibility="Collapsed" Margin="0,20,0,0">
+                    <TextBlock Text="TradeStation Configuration" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Coming Soon..." FontStyle="Italic" Margin="0,10"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,20,0,0">
+            <Button Content="Cancel" 
+                    Style="{StaticResource CancelButtonStyle}"
+                    Click="Cancel_Click" 
+                    Margin="0,0,10,0"/>
+            <Button x:Name="ConnectButton" 
+                    Content="Connect" 
+                    Click="Connect_Click"
+                    IsEnabled="False"/>
+        </StackPanel>
+    </Grid>
+</Window>

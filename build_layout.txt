@@ -1,0 +1,18 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+c:\Users\Gaming\APEXv2\ApexV2\UI\Layout\LayoutService.cs(18,45): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [c:\Users\Gaming\APEXv2\ApexV2\ApexV2_tt2sgrv2_wpftmp.csproj]
+c:\Users\Gaming\APEXv2\ApexV2\MainWindow.xaml.cs(33,18): warning CS0414: The field 'MainWindow._layoutDirty' is assigned but its value is never used [c:\Users\Gaming\APEXv2\ApexV2\ApexV2_tt2sgrv2_wpftmp.csproj]
+c:\Users\Gaming\APEXv2\ApexV2\UI\Layout\LayoutService.cs(18,45): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [c:\Users\Gaming\APEXv2\ApexV2\ApexV2.csproj]
+c:\Users\Gaming\APEXv2\ApexV2\MainWindow.xaml.cs(33,18): warning CS0414: The field 'MainWindow._layoutDirty' is assigned but its value is never used [c:\Users\Gaming\APEXv2\ApexV2\ApexV2.csproj]
+  ApexV2 -> c:\Users\Gaming\APEXv2\ApexV2\bin\Debug\net9.0-windows\ApexV2.dll
+
+Build succeeded.
+
+c:\Users\Gaming\APEXv2\ApexV2\UI\Layout\LayoutService.cs(18,45): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [c:\Users\Gaming\APEXv2\ApexV2\ApexV2_tt2sgrv2_wpftmp.csproj]
+c:\Users\Gaming\APEXv2\ApexV2\MainWindow.xaml.cs(33,18): warning CS0414: The field 'MainWindow._layoutDirty' is assigned but its value is never used [c:\Users\Gaming\APEXv2\ApexV2\ApexV2_tt2sgrv2_wpftmp.csproj]
+c:\Users\Gaming\APEXv2\ApexV2\UI\Layout\LayoutService.cs(18,45): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [c:\Users\Gaming\APEXv2\ApexV2\ApexV2.csproj]
+c:\Users\Gaming\APEXv2\ApexV2\MainWindow.xaml.cs(33,18): warning CS0414: The field 'MainWindow._layoutDirty' is assigned but its value is never used [c:\Users\Gaming\APEXv2\ApexV2\ApexV2.csproj]
+    4 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.16

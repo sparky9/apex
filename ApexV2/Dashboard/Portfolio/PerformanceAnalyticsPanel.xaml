@@ -1,0 +1,581 @@
+<UserControl x:Class="ApexV2.Dashboard.Portfolio.PerformanceAnalyticsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ApexV2.Dashboard.Portfolio"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200"
+             Loaded="UserControl_Loaded">
+    
+    <UserControl.Resources>
+        <!-- Styles -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF0E639C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF1177BB"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF0A5A91"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FF2D2D30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="#FF2D2D30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FF0E639C"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3F3F46"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- Value converters -->
+        <local:PerformanceColorConverter x:Key="PerformanceColorConverter"/>
+        <local:PercentageConverter x:Key="PercentageConverter"/>
+        <local:CurrencyConverter x:Key="CurrencyConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Background="#1E1E1E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Grid Grid.Row="0" Background="#FF252526" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,10">
+                <TextBlock Text="📊" FontSize="20" Margin="0,0,10,0"/>
+                <TextBlock Text="Performance Analytics" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock x:Name="PortfolioNameText" Text="- No Portfolio Selected" FontSize="16" Margin="10,0,0,0" 
+                          Foreground="#CCCCCC" VerticalAlignment="Center"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15,10">
+                <Label Content="Portfolio:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="PortfolioComboBox" Width="200" Margin="5,0,10,0" 
+                         SelectionChanged="PortfolioComboBox_SelectionChanged"/>
+                <Label Content="Benchmark:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="BenchmarkComboBox" Width="120" Margin="5,0,10,0" SelectedIndex="0">
+                    <ComboBoxItem Content="SPY" Tag="SPY"/>
+                    <ComboBoxItem Content="QQQ" Tag="QQQ"/>
+                    <ComboBoxItem Content="IWM" Tag="IWM"/>
+                    <ComboBoxItem Content="TSX" Tag="TSX"/>
+                </ComboBox>
+                <Button x:Name="RefreshButton" Content="🔄 Refresh" Margin="5,0" Click="RefreshButton_Click"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Main Content -->
+        <TabControl Grid.Row="1" Margin="10">
+            <!-- Overview Tab -->
+            <TabItem Header="📈 Overview">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Performance Summary Cards -->
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Total Return Card -->
+                            <Border Grid.Column="0" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Total Return" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="TotalReturnText" Text="--" FontSize="24" FontWeight="Bold" 
+                                              Foreground="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource PerformanceColorConverter}}"/>
+                                    <TextBlock x:Name="TotalReturnPercentText" Text="--" FontSize="14" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Annualized Return Card -->
+                            <Border Grid.Column="1" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Annualized Return" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="AnnualizedReturnText" Text="--" FontSize="24" FontWeight="Bold" 
+                                              Foreground="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource PerformanceColorConverter}}"/>
+                                    <TextBlock Text="Per Year" FontSize="14" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Sharpe Ratio Card -->
+                            <Border Grid.Column="2" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Sharpe Ratio" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="SharpeRatioText" Text="--" FontSize="24" FontWeight="Bold" 
+                                              Foreground="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource PerformanceColorConverter}}"/>
+                                    <TextBlock Text="Risk-Adjusted" FontSize="14" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Max Drawdown Card -->
+                            <Border Grid.Column="3" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Max Drawdown" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="MaxDrawdownText" Text="--" FontSize="24" FontWeight="Bold" Foreground="#FF4C7DC4"/>
+                                    <TextBlock x:Name="MaxDrawdownDateText" Text="--" FontSize="14" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        
+                        <!-- Performance Periods Table -->
+                        <Border Grid.Row="1" Background="#FF2D2D30" Margin="0,0,0,20" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Performance by Period" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <DataGrid Grid.Row="1" x:Name="PerformancePeriodsGrid" 
+                                         AutoGenerateColumns="False"
+                                         Background="Transparent"
+                                         Foreground="White"
+                                         GridLinesVisibility="Horizontal"
+                                         HeadersVisibility="Column"
+                                         IsReadOnly="True"
+                                         RowBackground="#FF1E1E1E"
+                                         AlternatingRowBackground="#FF252526">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Period" Binding="{Binding Period}" Width="120"/>
+                                        <DataGridTextColumn Header="Return" Binding="{Binding Return, Converter={StaticResource PercentageConverter}}" Width="100"/>
+                                        <DataGridTextColumn Header="Volatility" Binding="{Binding Volatility, Converter={StaticResource PercentageConverter}}" Width="100"/>
+                                        <DataGridTextColumn Header="Sharpe Ratio" Binding="{Binding SharpeRatio, StringFormat=F2}" Width="100"/>
+                                        <DataGridTextColumn Header="Max Drawdown" Binding="{Binding MaxDrawdown, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                        <DataGridTextColumn Header="Win Rate" Binding="{Binding WinRate, Converter={StaticResource PercentageConverter}}" Width="100"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Charts Placeholder -->
+                        <Border Grid.Row="2" Background="#FF2D2D30" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Equity Curve" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <Border Grid.Row="1" Background="#FF1E1E1E" MinHeight="300" CornerRadius="4">
+                                    <TextBlock Text="📈 Equity Curve Chart" 
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              FontSize="18" 
+                                              Foreground="#CCCCCC"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Risk Analysis Tab -->
+            <TabItem Header="⚠️ Risk Analysis">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Risk Metrics Cards -->
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Border Grid.Column="0" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Value at Risk (95%)" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="VaR95Text" Text="--" FontSize="20" FontWeight="Bold" Foreground="#FFE74C3C"/>
+                                    <TextBlock Text="Daily VaR" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border Grid.Column="1" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Volatility" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="VolatilityText" Text="--" FontSize="20" FontWeight="Bold" Foreground="#FFF39C12"/>
+                                    <TextBlock Text="Annualized" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border Grid.Column="2" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Beta" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="BetaText" Text="--" FontSize="20" FontWeight="Bold" Foreground="#FF9B59B6"/>
+                                    <TextBlock Text="vs Benchmark" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border Grid.Column="3" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Sortino Ratio" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="SortinoRatioText" Text="--" FontSize="20" FontWeight="Bold" Foreground="#FF1ABC9C"/>
+                                    <TextBlock Text="Downside Risk" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        
+                        <!-- Risk Breakdown -->
+                        <Border Grid.Row="1" Background="#FF2D2D30" Margin="0,0,0,20" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Risk Contribution by Position" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <DataGrid Grid.Row="1" x:Name="RiskContributionGrid" 
+                                         AutoGenerateColumns="False"
+                                         Background="Transparent"
+                                         Foreground="White"
+                                         GridLinesVisibility="Horizontal"
+                                         HeadersVisibility="Column"
+                                         IsReadOnly="True"
+                                         RowBackground="#FF1E1E1E"
+                                         AlternatingRowBackground="#FF252526">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" Width="80"/>
+                                        <DataGridTextColumn Header="Weight" Binding="{Binding Weight, Converter={StaticResource PercentageConverter}}" Width="80"/>
+                                        <DataGridTextColumn Header="Volatility" Binding="{Binding Volatility, Converter={StaticResource PercentageConverter}}" Width="100"/>
+                                        <DataGridTextColumn Header="Risk Contribution" Binding="{Binding RiskContributionPercent, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                        <DataGridTextColumn Header="Diversification" Binding="{Binding DiversificationRatio, StringFormat=F2}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Monte Carlo Results -->
+                        <Border Grid.Row="2" Background="#FF2D2D30" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="Monte Carlo Simulation" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <Button x:Name="RunSimulationButton" Content="🎲 Run Simulation" Margin="20,0,0,0" Click="RunSimulationButton_Click"/>
+                                </StackPanel>
+                                
+                                <Grid Grid.Row="1" Margin="0,0,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Probability of Loss" FontSize="12" Foreground="#CCCCCC"/>
+                                        <TextBlock x:Name="ProbabilityOfLossText" Text="--" FontSize="18" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Median Return" FontSize="12" Foreground="#CCCCCC"/>
+                                        <TextBlock x:Name="MedianReturnText" Text="--" FontSize="18" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Worst Case" FontSize="12" Foreground="#CCCCCC"/>
+                                        <TextBlock x:Name="WorstCaseText" Text="--" FontSize="18" FontWeight="Bold" Foreground="#FFE74C3C"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="Best Case" FontSize="12" Foreground="#CCCCCC"/>
+                                        <TextBlock x:Name="BestCaseText" Text="--" FontSize="18" FontWeight="Bold" Foreground="#FF27AE60"/>
+                                    </StackPanel>
+                                </Grid>
+                                
+                                <Border Grid.Row="2" Background="#FF1E1E1E" MinHeight="200" CornerRadius="4">
+                                    <TextBlock Text="📊 Monte Carlo Distribution Chart" 
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              FontSize="18" 
+                                              Foreground="#CCCCCC"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Benchmark Comparison Tab -->
+            <TabItem Header="📊 Benchmark">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Comparison Metrics -->
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Border Grid.Column="0" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Alpha" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="AlphaText" Text="--" FontSize="20" FontWeight="Bold" 
+                                              Foreground="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource PerformanceColorConverter}}"/>
+                                    <TextBlock Text="Excess Return" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border Grid.Column="1" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Information Ratio" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="InformationRatioText" Text="--" FontSize="20" FontWeight="Bold" 
+                                              Foreground="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource PerformanceColorConverter}}"/>
+                                    <TextBlock Text="Risk-Adjusted Active" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border Grid.Column="2" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Up Capture" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="UpCaptureText" Text="--" FontSize="20" FontWeight="Bold" Foreground="#FF27AE60"/>
+                                    <TextBlock Text="Bull Market" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border Grid.Column="3" Background="#FF2D2D30" Margin="5" Padding="15" CornerRadius="8">
+                                <StackPanel>
+                                    <TextBlock Text="Down Capture" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="DownCaptureText" Text="--" FontSize="20" FontWeight="Bold" Foreground="#FFE74C3C"/>
+                                    <TextBlock Text="Bear Market" FontSize="12" Foreground="#CCCCCC"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        
+                        <!-- Performance Comparison Table -->
+                        <Border Grid.Row="1" Background="#FF2D2D30" Margin="0,0,0,20" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Portfolio vs Benchmark Performance" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <DataGrid Grid.Row="1" x:Name="BenchmarkComparisonGrid" 
+                                         AutoGenerateColumns="False"
+                                         Background="Transparent"
+                                         Foreground="White"
+                                         GridLinesVisibility="Horizontal"
+                                         HeadersVisibility="Column"
+                                         IsReadOnly="True"
+                                         RowBackground="#FF1E1E1E"
+                                         AlternatingRowBackground="#FF252526">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Metric" Binding="{Binding Metric}" Width="150"/>
+                                        <DataGridTextColumn Header="Portfolio" Binding="{Binding PortfolioValue}" Width="120"/>
+                                        <DataGridTextColumn Header="Benchmark" Binding="{Binding BenchmarkValue}" Width="120"/>
+                                        <DataGridTextColumn Header="Difference" Binding="{Binding Difference}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Comparison Chart -->
+                        <Border Grid.Row="2" Background="#FF2D2D30" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Portfolio vs Benchmark Returns" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <Border Grid.Row="1" Background="#FF1E1E1E" MinHeight="300" CornerRadius="4">
+                                    <TextBlock Text="📈 Comparison Chart" 
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              FontSize="18" 
+                                              Foreground="#CCCCCC"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Attribution Tab -->
+            <TabItem Header="🎯 Attribution">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Attribution Summary -->
+                        <Border Grid.Row="0" Background="#FF2D2D30" Margin="0,0,0,20" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="Total Active Return" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="TotalActiveReturnText" Text="--" FontSize="18" FontWeight="Bold"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Allocation Effect" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="AllocationEffectText" Text="--" FontSize="18" FontWeight="Bold"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="Selection Effect" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="SelectionEffectText" Text="--" FontSize="18" FontWeight="Bold"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="3">
+                                    <TextBlock Text="Interaction Effect" FontSize="12" Foreground="#CCCCCC"/>
+                                    <TextBlock x:Name="InteractionEffectText" Text="--" FontSize="18" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Sector Attribution -->
+                        <Border Grid.Row="1" Background="#FF2D2D30" Margin="0,0,0,20" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Sector Attribution Analysis" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <DataGrid Grid.Row="1" x:Name="SectorAttributionGrid" 
+                                         AutoGenerateColumns="False"
+                                         Background="Transparent"
+                                         Foreground="White"
+                                         GridLinesVisibility="Horizontal"
+                                         HeadersVisibility="Column"
+                                         IsReadOnly="True"
+                                         RowBackground="#FF1E1E1E"
+                                         AlternatingRowBackground="#FF252526">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Sector" Binding="{Binding SectorName}" Width="120"/>
+                                        <DataGridTextColumn Header="Portfolio Weight" Binding="{Binding PortfolioWeight, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                        <DataGridTextColumn Header="Benchmark Weight" Binding="{Binding BenchmarkWeight, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                        <DataGridTextColumn Header="Allocation Effect" Binding="{Binding AllocationEffect, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                        <DataGridTextColumn Header="Selection Effect" Binding="{Binding SelectionEffect, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                        <DataGridTextColumn Header="Total Attribution" Binding="{Binding TotalAttribution, Converter={StaticResource PercentageConverter}}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Security Attribution -->
+                        <Border Grid.Row="2" Background="#FF2D2D30" Padding="15" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="Top Contributing Securities" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                
+                                <DataGrid Grid.Row="1" x:Name="SecurityAttributionGrid" 
+                                         AutoGenerateColumns="False"
+                                         Background="Transparent"
+                                         Foreground="White"
+                                         GridLinesVisibility="Horizontal"
+                                         HeadersVisibility="Column"
+                                         IsReadOnly="True"
+                                         RowBackground="#FF1E1E1E"
+                                         AlternatingRowBackground="#FF252526">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" Width="80"/>
+                                        <DataGridTextColumn Header="Security Name" Binding="{Binding SecurityName}" Width="200"/>
+                                        <DataGridTextColumn Header="Sector" Binding="{Binding Sector}" Width="100"/>
+                                        <DataGridTextColumn Header="Weight" Binding="{Binding Weight, Converter={StaticResource PercentageConverter}}" Width="80"/>
+                                        <DataGridTextColumn Header="Return" Binding="{Binding Return, Converter={StaticResource PercentageConverter}}" Width="80"/>
+                                        <DataGridTextColumn Header="Contribution" Binding="{Binding Contribution, Converter={StaticResource PercentageConverter}}" Width="100"/>
+                                        <DataGridTextColumn Header="Attribution" Binding="{Binding Attribution, Converter={StaticResource PercentageConverter}}" Width="100"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

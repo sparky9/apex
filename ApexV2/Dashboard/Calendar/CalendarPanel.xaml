@@ -1,0 +1,210 @@
+<UserControl x:Class="ApexV2.Dashboard.Calendar.CalendarPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ApexV2.Dashboard.Calendar">
+    
+    <UserControl.Resources>
+        <local:EventTypeToColorConverter x:Key="EventTypeToColorConverter"/>
+        <local:ImportanceToIconConverter x:Key="ImportanceToIconConverter"/>
+        <local:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+        
+        <Style x:Key="EventItemStyle" TargetType="ListViewItem">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F5F5F5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        
+        <Style x:Key="FilterButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="BorderBrush" Value="#D0D0D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Economic Calendar" Style="{StaticResource HeaderTextStyle}"/>
+
+        <!-- Filters and Controls -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Date and Search Filters -->
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,5">
+                <Label Content="From:" VerticalAlignment="Center"/>
+                <DatePicker x:Name="StartDatePicker" Width="120" Margin="5,0" SelectedDate="{Binding StartDate}"/>
+                
+                <Label Content="To:" VerticalAlignment="Center"/>
+                <DatePicker x:Name="EndDatePicker" Width="120" Margin="5,0" SelectedDate="{Binding EndDate}"/>
+                
+                <Label Content="Search:" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                <TextBox x:Name="SearchTextBox" Width="150" Margin="5,0" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" ToolTip="Search events, symbols, or companies"/>
+            </StackPanel>
+
+            <!-- Action Buttons -->
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="RefreshButton" Content="Refresh" Style="{StaticResource FilterButtonStyle}" Click="RefreshButton_Click" ToolTip="Refresh calendar data"/>
+                <Button x:Name="TodayButton" Content="Today" Style="{StaticResource FilterButtonStyle}" Click="TodayButton_Click" ToolTip="Go to today"/>
+                <Button x:Name="ExportButton" Content="Export" Style="{StaticResource FilterButtonStyle}" Click="ExportButton_Click" ToolTip="Export calendar data"/>
+            </StackPanel>
+
+            <!-- Filter Checkboxes -->
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <Label Content="Event Types:" VerticalAlignment="Center"/>
+                <CheckBox x:Name="EarningsCheckBox" Content="Earnings" Margin="5,0" IsChecked="{Binding ShowEarnings}"/>
+                <CheckBox x:Name="DividendsCheckBox" Content="Dividends" Margin="5,0" IsChecked="{Binding ShowDividends}"/>
+                <CheckBox x:Name="EconomicCheckBox" Content="Economic" Margin="5,0" IsChecked="{Binding ShowEconomic}"/>
+                <CheckBox x:Name="IPOCheckBox" Content="IPOs" Margin="5,0" IsChecked="{Binding ShowIPO}"/>
+                
+                <Label Content="Importance:" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                <CheckBox x:Name="HighImportanceCheckBox" Content="High" Margin="5,0" IsChecked="{Binding ShowHighImportance}"/>
+                <CheckBox x:Name="MediumImportanceCheckBox" Content="Medium" Margin="5,0" IsChecked="{Binding ShowMediumImportance}"/>
+                <CheckBox x:Name="LowImportanceCheckBox" Content="Low" Margin="5,0" IsChecked="{Binding ShowLowImportance}"/>
+                
+                <CheckBox x:Name="WatchlistOnlyCheckBox" Content="Watchlist Only" Margin="20,0,5,0" IsChecked="{Binding WatchlistOnly}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Events List -->
+        <ListView Grid.Row="2" x:Name="EventsListView" ItemContainerStyle="{StaticResource EventItemStyle}" SelectionChanged="EventsListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Time" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding EventDate, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='HH:mm'}" 
+                                         VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Importance" Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Importance, Converter={StaticResource ImportanceToIconConverter}}" 
+                                         FontSize="14" 
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Type" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Background="{Binding Type, Converter={StaticResource EventTypeToColorConverter}}" 
+                                      CornerRadius="3" Padding="5,2">
+                                    <TextBlock Text="{Binding Type}" 
+                                             Foreground="White" 
+                                             FontSize="10" 
+                                             FontWeight="Bold"
+                                             HorizontalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Symbol" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Symbol}" 
+                                         FontWeight="Bold" 
+                                         VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Title" Width="250">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}" 
+                                         VerticalAlignment="Center" 
+                                         TextWrapping="NoWrap" 
+                                         TextTrimming="CharacterEllipsis"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Company" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CompanyName}" 
+                                         VerticalAlignment="Center" 
+                                         TextWrapping="NoWrap" 
+                                         TextTrimming="CharacterEllipsis"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Status" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Status}" 
+                                         VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock x:Name="EventCountText" Text="0 events"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="LastUpdateText" Text="Last updated: Never"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Market Status:"/>
+                    <Ellipse x:Name="MarketStatusIndicator" Width="12" Height="12" Margin="5,0" Fill="Gray"/>
+                    <TextBlock x:Name="MarketStatusText" Text="Unknown"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay" Grid.RowSpan="4" Background="#80000000" Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar Width="100" Height="20" IsIndeterminate="True" Margin="10"/>
+                <TextBlock x:Name="LoadingText" Text="Loading calendar data..." 
+                         Foreground="White" 
+                         HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

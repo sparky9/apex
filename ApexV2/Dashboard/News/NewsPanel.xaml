@@ -1,0 +1,241 @@
+<UserControl x:Class="ApexV2.Dashboard.News.NewsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ApexV2.Dashboard.News"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000">
+    
+    <UserControl.Resources>
+        <!-- News Article Template -->
+        <DataTemplate x:Key="NewsArticleTemplate">
+            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="12" Margin="0,0,0,1"
+                    Background="{Binding IsRead, Converter={StaticResource BoolToBackgroundConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Article Header -->
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBlock Text="{Binding Source.Name}" FontWeight="SemiBold" FontSize="11" 
+                                   Foreground="#666666" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Symbol}" FontWeight="Bold" FontSize="11" 
+                                   Foreground="#0066CC" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding PublishedAt, StringFormat='{}{0:MMM dd, HH:mm}'}" 
+                                   FontSize="11" Foreground="#888888" Margin="0,0,8,0"/>
+                        <Border Background="{Binding Sentiment.Type, Converter={StaticResource SentimentToBrushConverter}}"
+                                CornerRadius="8" Padding="4,1" Margin="0,0,8,0">
+                            <TextBlock Text="{Binding Sentiment.Type}" FontSize="9" FontWeight="Bold" 
+                                       Foreground="White"/>
+                        </Border>
+                        <Border Background="{Binding Impact, Converter={StaticResource ImpactToBrushConverter}}"
+                                CornerRadius="8" Padding="4,1">
+                            <TextBlock Text="{Binding Impact}" FontSize="9" FontWeight="Bold" 
+                                       Foreground="White"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Bookmark Button -->
+                    <Button Grid.Row="0" Grid.Column="1" 
+                            Content="{Binding IsBookmarked, Converter={StaticResource BookmarkIconConverter}}"
+                            FontFamily="Segoe MDL2 Assets" FontSize="14"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="{Binding IsBookmarked, Converter={StaticResource BookmarkColorConverter}}"
+                            Cursor="Hand" Padding="4"
+                            Click="BookmarkButton_Click" Tag="{Binding}"/>
+
+                    <!-- Article Title -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                               Text="{Binding Title}" FontWeight="{Binding IsRead, Converter={StaticResource ReadToFontWeightConverter}}"
+                               FontSize="14" TextWrapping="Wrap" Margin="0,0,0,4"
+                               Cursor="Hand" MouseLeftButtonUp="ArticleTitle_Click" Tag="{Binding}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="#0066CC"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <!-- Article Summary -->
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                               Text="{Binding Summary}" FontSize="12" Foreground="#555555"
+                               TextWrapping="Wrap" MaxHeight="60" 
+                               TextTrimming="CharacterEllipsis" Margin="0,0,0,4"/>
+
+                    <!-- Article Footer -->
+                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding RelevanceScore, StringFormat='Relevance: {0:P0}'}" 
+                                   FontSize="10" Foreground="#888888" Margin="0,0,12,0"/>
+                        <Button Content="Open" FontSize="10" Padding="6,2"
+                                Background="#0066CC" Foreground="White" BorderThickness="0"
+                                Cursor="Hand" Click="OpenArticle_Click" Tag="{Binding}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <!-- Value Converters -->
+        <local:BoolToBackgroundConverter x:Key="BoolToBackgroundConverter"/>
+        <local:SentimentToBrushConverter x:Key="SentimentToBrushConverter"/>
+        <local:ImpactToBrushConverter x:Key="ImpactToBrushConverter"/>
+        <local:BookmarkIconConverter x:Key="BookmarkIconConverter"/>
+        <local:BookmarkColorConverter x:Key="BookmarkColorConverter"/>
+        <local:ReadToFontWeightConverter x:Key="ReadToFontWeightConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#F8F9FA" Padding="12" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="📰" FontSize="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Financial News" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Name="NewsCountText" Text="(0 articles)" FontSize="12" 
+                               Foreground="#666666" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Name="RefreshButton" Content="🔄" FontFamily="Segoe UI Symbol" FontSize="14"
+                            Background="#28A745" Foreground="White" BorderThickness="0"
+                            Padding="8,4" Margin="0,0,8,0" Cursor="Hand"
+                            Click="RefreshButton_Click" ToolTip="Refresh News"/>
+                    <Button Name="FilterButton" Content="🔍" FontFamily="Segoe UI Symbol" FontSize="14"
+                            Background="#6C757D" Foreground="White" BorderThickness="0"
+                            Padding="8,4" Margin="0,0,8,0" Cursor="Hand"
+                            Click="FilterButton_Click" ToolTip="Filter News"/>
+                    <Button Name="SettingsButton" Content="⚙" FontFamily="Segoe UI Symbol" FontSize="14"
+                            Background="#17A2B8" Foreground="White" BorderThickness="0"
+                            Padding="8,4" Cursor="Hand"
+                            Click="SettingsButton_Click" ToolTip="News Settings"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Filter Bar -->
+        <Border Name="FilterPanel" Grid.Row="1" Background="#F0F0F0" Padding="12" 
+                BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Symbol:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <TextBox Name="SymbolFilterBox" Grid.Column="1" Padding="4" Margin="0,0,12,0"
+                         TextChanged="SymbolFilter_Changed" ToolTip="e.g., AAPL"/>
+
+                <TextBlock Grid.Column="2" Text="Category:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <ComboBox Name="CategoryFilterCombo" Grid.Column="3" Padding="4" Margin="0,0,12,0"
+                          SelectionChanged="CategoryFilter_Changed"/>
+
+                <TextBlock Grid.Column="4" Text="Sentiment:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <ComboBox Name="SentimentFilterCombo" Grid.Column="5" Padding="4" Margin="0,0,12,0"
+                          SelectionChanged="SentimentFilter_Changed"/>
+
+                <TextBox Name="SearchBox" Grid.Column="6" Padding="4" Margin="0,0,12,0"
+                         TextChanged="SearchBox_Changed" ToolTip="Search articles..."/>
+
+                <Button Name="ClearFiltersButton" Grid.Column="7" Content="Clear" 
+                        Background="#DC3545" Foreground="White" BorderThickness="0"
+                        Padding="8,4" Cursor="Hand" Click="ClearFilters_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- News List -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Name="NewsContainer">
+                <!-- Loading Indicator -->
+                <Grid Name="LoadingIndicator" Visibility="Collapsed" Height="200">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="🔄" FontSize="32" HorizontalAlignment="Center" Margin="0,0,0,8">
+                            <TextBlock.RenderTransform>
+                                <RotateTransform x:Name="LoadingRotation"/>
+                            </TextBlock.RenderTransform>
+                            <TextBlock.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimation Storyboard.TargetName="LoadingRotation"
+                                                           Storyboard.TargetProperty="Angle"
+                                                           From="0" To="360" Duration="0:0:2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </TextBlock.Triggers>
+                        </TextBlock>
+                        <TextBlock Text="Loading news..." FontSize="14" HorizontalAlignment="Center" Foreground="#666666"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- No News Message -->
+                <Grid Name="NoNewsIndicator" Visibility="Collapsed" Height="200">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="📰" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,12" Opacity="0.3"/>
+                        <TextBlock Text="No news articles found" FontSize="16" HorizontalAlignment="Center" 
+                                   Foreground="#666666" Margin="0,0,0,4"/>
+                        <TextBlock Text="Try adjusting your filters or refresh the news feed" FontSize="12" 
+                                   HorizontalAlignment="Center" Foreground="#888888"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- News Articles List -->
+                <ItemsControl Name="NewsItemsControl" ItemTemplate="{StaticResource NewsArticleTemplate}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="3" Background="#F8F9FA" Padding="12,6" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Name="StatusText" Text="Ready" FontSize="11" Foreground="#666666" VerticalAlignment="Center"/>
+                    <TextBlock Text="•" FontSize="11" Foreground="#CCCCCC" Margin="8,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="LastUpdateText" Text="Never updated" FontSize="11" Foreground="#666666" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Name="UnreadCountText" Text="0 unread" FontSize="11" 
+                               Foreground="#0066CC" FontWeight="SemiBold" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="BookmarkedCountText" Text="0 bookmarked" FontSize="11" 
+                               Foreground="#FFC107" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

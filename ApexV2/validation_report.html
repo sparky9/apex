@@ -1,0 +1,2143 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>APEX V2 Validation Report</title>
+    <meta charset='utf-8'>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin: -30px -30px 30px -30px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0; }
+        .summary-card { background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #007bff; }
+        .critical { border-left-color: #dc3545; }
+        .high { border-left-color: #fd7e14; }
+        .medium { border-left-color: #ffc107; }
+        .low { border-left-color: #17a2b8; }
+        .issue { margin: 15px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #dee2e6; }
+        .issue.critical { border-left-color: #dc3545; background: #f8f9fa; }
+        .issue.high { border-left-color: #fd7e14; background: #fff3cd; }
+        .issue.medium { border-left-color: #ffc107; background: #fff3cd; }
+        .issue.low { border-left-color: #17a2b8; background: #d1ecf1; }
+        .recommendation { background: #e7f3ff; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 3px solid #007bff; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .location { font-family: 'Courier New', monospace; background: #f1f1f1; padding: 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>🔍 APEX V2 Automated Validation Report</h1>
+            <p><strong>Generated:</strong> 2025-08-10 12:24:13</p>
+            <p><strong>Duration:</strong> 3.5 seconds</p>
+            <p><strong>Build Status:</strong> <span class='error'>❌ FAILED</span></p>
+        </div>
+        
+        <div class='summary'>
+            <div class='summary-card critical'>
+                <h3>🔴 Critical Issues</h3>
+                <div style='font-size: 2em; font-weight: bold;'>1</div>
+                <p>Must be fixed immediately</p>
+            </div>
+            <div class='summary-card high'>
+                <h3>🟠 High Priority</h3>
+                <div style='font-size: 2em; font-weight: bold;'>31</div>
+                <p>Should be fixed soon</p>
+            </div>
+            <div class='summary-card medium'>
+                <h3>🟡 Medium Priority</h3>
+                <div style='font-size: 2em; font-weight: bold;'>154</div>
+                <p>Plan to fix in next iteration</p>
+            </div>
+            <div class='summary-card low'>
+                <h3>🔵 Low Priority</h3>
+                <div style='font-size: 2em; font-weight: bold;'>42</div>
+                <p>Consider for future improvements</p>
+            </div>
+        </div>
+        
+        <h2>📊 Validation Summary</h2>
+        <ul>
+            <li><strong>Code Quality Issues:</strong> 71</li>
+            <li><strong>Performance Analytics Issues:</strong> 1</li>
+            <li><strong>XAML Issues:</strong> 0</li>
+            <li><strong>Test Coverage Issues:</strong> 4</li>
+            <li><strong>Runtime Issues:</strong> 214</li>
+        </ul>
+        
+        <h2>🔍 Detailed Issues</h2>
+        
+        <div class='issue low'>
+            <h3>Build Warnings</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> Build succeeded with 3 warnings (showing first 3)</p>
+            <p><strong>Location:</strong> <span class='location'>C:\Users\Gaming\APEXv2\ApexV2\Dashboard\News\NewsModels.cs(92,49): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Users\Gaming\APEXv2\ApexV2\ApexV2_ypjca2bn_wpftmp.csproj]
+C:\Users\Gaming\APEXv2\ApexV2\Dashboard\News\NewsModels.cs(94,75): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Users\Gaming\APEXv2\ApexV2\ApexV2_ypjca2bn_wpftmp.csproj]
+C:\Users\Gaming\APEXv2\ApexV2\Dashboard\News\NewsModels.cs(100,38): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Users\Gaming\APEXv2\ApexV2\ApexV2_ypjca2bn_wpftmp.csproj]</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Review and fix build warnings
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement layout paste functionality</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement chart templates</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement chart layout saving</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement head and shoulders detection algorithm</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternDetectionService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement double top/bottom detection algorithm</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternDetectionService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement flag pattern detection algorithm</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternDetectionService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement candlestick pattern detection algorithms</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternDetectionService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement watchlist settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement fundamentals view</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Temporarily commented to fix compilation</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Open chart settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement zoom presets</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartNavigationManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement timeframe setting</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartNavigationManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Integrate with actual market data service</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Services\ChartDataService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Open chart settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Profile ensure will be handled externally after AuthResult consumption for single responsibility</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Authentication\AuthService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Add proper logging</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Database\DatabaseService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Open news settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Alpha Vantage API call</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\AlphaVantageProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Alpha Vantage historical data API</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\AlphaVantageProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Alpha Vantage symbol search</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\AlphaVantageProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Alpha Vantage fundamentals API</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\AlphaVantageProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Alpha Vantage news API</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\AlphaVantageProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Finnhub API call</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\FinnhubProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement IEX Cloud API call</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\IEXProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: IEX supports batch requests - more efficient</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\IEXProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement Polygon API call</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\PolygonProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement actual connection logic</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\YahooFinanceProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement actual Yahoo Finance API call</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\YahooFinanceProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement actual historical data retrieval</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\YahooFinanceProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement symbol search</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\YahooFinanceProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Implement fundamentals data retrieval</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\YahooFinanceProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Initialize Alpaca API client</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\AlpacaTradingProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Create HttpClient with proper auth headers</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\AlpacaTradingProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: GET /v2/account</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\AlpacaTradingProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: GET /v2/positions</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\AlpacaTradingProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: GET /v2/orders</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\AlpacaTradingProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Initialize IBKR TWS API connection</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\IBKRTradingProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Questrade OAuth flow is complex</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\QuestradeProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Initialize TD Ameritrade API</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Trading\TDAmeritradeProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue low'>
+            <h3>TODO/FIXME Comment</h3>
+            <p><strong>Severity:</strong> Low</p>
+            <p><strong>Description:</strong> TODO: [REVIEWED]: Integrate with MarketDataEngine</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\Plugins\PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete the TODO item or remove the comment
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Missing Interface</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> PerformanceAnalyticsService doesn't implement required interface</p>
+            <p><strong>Location:</strong> <span class='location'>PerformanceAnalyticsService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Implement IPerformanceAnalyticsService interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Missing Tests</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> No tests found for PerformanceAnalyticsService</p>
+            
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Create unit tests for PerformanceAnalyticsService
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Missing Tests</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> No tests found for MarketDataService</p>
+            
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Create unit tests for MarketDataService
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Missing Tests</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> No tests found for PortfolioService</p>
+            
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Create unit tests for PortfolioService
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Missing Tests</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> No tests found for ChartControl</p>
+            
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Create unit tests for ChartControl
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void OkButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>InputDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void CancelButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>InputDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ClockTimer_Tick(object? sender, EventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Navigation_CurrentPageChanged(object? sender, EventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void NewWorkspace_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Diagnostics\CodeDiagnostics.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Validation\AutomatedValidationSystem.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Validation\UXValidationSystem.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\ApiManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void CreateApiKeyButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\ApiManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void RevokeApiKeyButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\ApiManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void RefreshButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\ApiManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void Login_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\LoginWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Cancel_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\LoginWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Refresh_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\LogViewerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void CopySelected_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\LogViewerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ExportVisible_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\LogViewerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\PluginManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void PluginsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\PluginManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void StartPluginButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\PluginManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void StopPluginButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\PluginManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\SettingsWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void BrowseDataPath_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\SettingsWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Reset_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\SettingsWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void Import_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\SettingsWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void UserProfileWindow_Loaded(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\UserProfileWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void Save_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\UserProfileWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Close_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\UserProfileWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Alerts\AlertManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Alerts\AlertModels.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Alerts\AlertService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternAnalysisService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternDetectionService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Patterns\PatternManagementService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Scanner\ScanBrowserService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Scanner\ScannerService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Scanner\ScanTemplateManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistAnalysisService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void AddSymbolButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void SettingsButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void NewWatchlistButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ChartControl_Loaded(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ChartControl_SizeChanged(object sender, SizeChangedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void UpdateTimer_Tick(object? sender, EventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Controls\ChartPanel.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Renderer\ChartRenderService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void SelectButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartDrawingToolbar.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void TrendLineButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartDrawingToolbar.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void HorizontalLineButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartDrawingToolbar.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartExportDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ExportImageButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartExportDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ExportDataButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartExportDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void CopyToClipboardButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartExportDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void RetryButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void TimeframeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ChartTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ChartWindow_Loaded(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void ChartWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Authentication\AuthService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Authentication\SessionManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Config\SettingsService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Logging\Logger.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Logging\LogManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\AlphaVantageCalendarProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\CalendarAlertManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void CalendarPanel_Loaded(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\CalendarPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void TodayButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\CalendarPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void ExportButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\CalendarPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\EconomicCalendarService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\AlphaVantageNewsProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void NewsPanel_Loaded(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void RefreshButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void FilterButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\NewsSentimentAnalyzer.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\AlpacaBrokerProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\BrokerConnectionDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void BrokerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\BrokerConnectionDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void TestConnection_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\BrokerConnectionDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Connect_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\BrokerConnectionDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PerformanceAnalyticsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void RefreshButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PerformanceAnalyticsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void RunSimulationButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PerformanceAnalyticsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PerformanceAnalyticsService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PerformanceComparisonService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioPanel.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void ConnectButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private async void RefreshButton_Click(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void UserControl_Unloaded(object sender, RoutedEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Caching\HistoricalDataCache.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Data\DataValidation\IQuoteValidator.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Data\Fundamentals\FundamentalDataEngine.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\API\ApiImplementations.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\API\ApiManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\API\ApiServices.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\Plugins\PluginManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\Plugins\PluginServices.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\Plugins\SamplePlugins.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\RealTime\RealTimeAlertService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\RealTime\RealTimeBroadcaster.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\RealTime\RealTimeMetricsService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\RealTime\RealTimeModels.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\RealTime\RealTimeStreamingService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Extensions\RealTime\RealTimeSubscriptionManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Basic\BollingerBands.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Basic\ExponentialMovingAverage.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Basic\MovingAverageConvergenceDivergence.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Basic\RelativeStrengthIndex.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Basic\SimpleMovingAverage.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Custom\CompositeIndicator.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Custom\CustomIndicatorService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Custom\FormulaIndicator.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Engine\IndicatorBase.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Engine\IndicatorMath.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Engine\IndicatorRegistry.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Engine\IndicatorService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Library\BuiltInIndicators.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Library\IndicatorLibraryBrowser.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Library\IndicatorLibraryManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Indicators\Library\IndicatorLibraryTemplateManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Tests\Automation\AutomatedTestRunner.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Panel_MouseMove(object sender, System.Windows.Input.MouseEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>UI\Layout\PanelHostControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Panel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>UI\Layout\PanelHostControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Unhandled Exception in Event Handler</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Event handler private void Panel_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e) lacks exception handling</p>
+            <p><strong>Location:</strong> <span class='location'>UI\Layout\PanelHostControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add try-catch blocks in event handlers to prevent crashes
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Potential Null Reference</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Direct .Value access without null check</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\Engine\MarketDataEngine.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Use null-conditional operator (?.) or explicit null checks
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Empty Panels</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Chart panels appear empty without sample data or instructions</p>
+            <p><strong>Location:</strong> <span class='location'>Chart panels</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Show sample data, loading message, or instructions when panels are empty
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Implement layout paste functionality</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Implement chart templates</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Implement chart layout saving</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Implement watchlist settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Implement fundamentals view</p>
+            <p><strong>Location:</strong> <span class='location'>WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Open chart settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>ChartControl.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Open chart settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>ChartPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Open news settings dialog</p>
+            <p><strong>Location:</strong> <span class='location'>NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with MarketDataEngine</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with FundamentalDataEngine</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with notification system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with dialog system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with menu system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with toolbar system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO [REVIEWED]: Integrate with chart system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO: Integrate with chart system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO: Integrate with database system</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Incomplete Features</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> User-facing feature has TODO/FIXME comment: // TODO: Implement HTTP client with security restrictions</p>
+            <p><strong>Location:</strong> <span class='location'>PluginContext.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Complete implementation or remove from user interface
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Navigation/Discoverability</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Chart functionality opens in separate windows instead of integrated workspace</p>
+            <p><strong>Location:</strong> <span class='location'>New Chart menu action</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add option to create charts within the main workspace instead of separate windows
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Data Display</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> No sample or demo data available for users to test functionality</p>
+            <p><strong>Location:</strong> <span class='location'>Market data panels</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Provide sample data option for users to explore features
+            </div>
+        </div>
+        <div class='issue medium'>
+            <h3>Data Display</h3>
+            <p><strong>Severity:</strong> Medium</p>
+            <p><strong>Description:</strong> Loading states and error messages may not be user-friendly</p>
+            <p><strong>Location:</strong> <span class='location'>Data loading areas</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Ensure all loading states show progress and errors are actionable
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>App.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\DashboardPanel.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Diagnostics\CodeDiagnostics.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Validation\AutomatedValidationSystem.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\ApiManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\LoginWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\PluginManagerWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\SettingsWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Windows\UserProfileWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Alerts\AlertService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Analysis\Watchlist\WatchlistPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartExportDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Charts\Windows\ChartPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Empty Catch Block</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains empty catch block that may hide errors</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Logging\FileLogSink.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add proper error handling or logging in catch blocks
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Empty Catch Block</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains empty catch block that may hide errors</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Logging\RollingFileLogSink.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add proper error handling or logging in catch blocks
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Core\Validation\ValidationManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\CalendarAlertManager.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Calendar\CalendarPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\News\NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\AlpacaBrokerProvider.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\BrokerConnectionDialog.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PerformanceAnalyticsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Async Void Method</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains async void method</p>
+            <p><strong>Location:</strong> <span class='location'>Dashboard\Portfolio\PortfolioService.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Change async void to async Task for proper exception handling
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Empty Catch Block</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> File contains empty catch block that may hide errors</p>
+            <p><strong>Location:</strong> <span class='location'>Data\MarketData\Engine\MarketDataEngine.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add proper error handling or logging in catch blocks
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Empty Workspace</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> Workspace starts completely empty with no guidance for users</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow workspace area</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add default panels or help text to guide users on how to add content
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Placeholder Content</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> Feature shows 'Coming Soon' message instead of working functionality</p>
+            <p><strong>Location:</strong> <span class='location'>MainWindow.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Implement actual functionality or provide meaningful alternative
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Placeholder Content</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> Feature shows 'Coming Soon' message instead of working functionality</p>
+            <p><strong>Location:</strong> <span class='location'>NewsPanel.xaml.cs</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Implement actual functionality or provide meaningful alternative
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Non-functional Controls</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> Right-click context menus exist but users don't know about them</p>
+            <p><strong>Location:</strong> <span class='location'>Workspace areas</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add visual hints or help text about right-click functionality
+            </div>
+        </div>
+        <div class='issue high'>
+            <h3>Navigation/Discoverability</h3>
+            <p><strong>Severity:</strong> High</p>
+            <p><strong>Description:</strong> Users cannot easily discover how to add charts or panels to workspace</p>
+            <p><strong>Location:</strong> <span class='location'>Main workspace area</span></p>
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Add 'Getting Started' overlay or prominent 'Add Panel' button
+            </div>
+        </div>
+        <div class='issue critical'>
+            <h3>Build Failed</h3>
+            <p><strong>Severity:</strong> Critical</p>
+            <p><strong>Description:</strong> Build failed with compilation errors</p>
+            
+            <div class='recommendation'>
+                <strong>💡 Recommendation:</strong> Fix compilation errors before proceeding
+            </div>
+        </div>
+        
+        
+        <h2>❌ Build Errors</h2>
+        <pre style='background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid #dc3545;'></pre>
+        
+        
+        <div style='margin-top: 40px; padding: 20px; background: #e7f3ff; border-radius: 8px;'>
+            <h3>📋 Next Steps</h3>
+            <ol>
+                <li><strong>Address all critical issues immediately</strong> - these prevent the application from working properly</li>
+                <li><strong>Fix high priority issues</strong> - these could cause runtime problems</li>
+                <li><strong>Plan medium priority fixes</strong> - these improve code quality</li>
+                <li><strong>Run validation again</strong> after fixes to ensure issues are resolved</li>
+                <li><strong>Consider implementing continuous validation</strong> in your development workflow</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

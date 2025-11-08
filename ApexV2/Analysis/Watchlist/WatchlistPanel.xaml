@@ -1,0 +1,298 @@
+<UserControl x:Class="ApexV2.Analysis.Watchlist.WatchlistPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="WatchlistHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+        
+        <Style x:Key="WatchlistItemStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#C0C0C0"/>
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <Style x:Key="PriceUpStyle" TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+            <Setter Property="Foreground" Value="#00C851"/>
+        </Style>
+        
+        <Style x:Key="PriceDownStyle" TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+            <Setter Property="Foreground" Value="#FF4444"/>
+        </Style>
+        
+        <Style x:Key="PriceNeutralStyle" TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+            <Setter Property="Foreground" Value="#C0C0C0"/>
+        </Style>
+
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="30"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#444"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#2E2E2E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#333" BorderBrush="#555" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,8">
+                    <TextBlock Text="📊" FontSize="16" Margin="0,0,8,0"/>
+                    <TextBlock x:Name="WatchlistTitle" Text="Watchlist" FontSize="14" FontWeight="Bold" 
+                              Foreground="#E0E0E0" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="ItemCount" Text="(0 items)" FontSize="12" Foreground="#999" 
+                              Margin="8,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,5">
+                    <Button x:Name="RefreshButton" Content="🔄" Style="{StaticResource ToolbarButtonStyle}" 
+                           ToolTip="Refresh Data" Click="RefreshButton_Click"/>
+                    <Button x:Name="AddSymbolButton" Content="+" Style="{StaticResource ToolbarButtonStyle}" 
+                           ToolTip="Add Symbol" Click="AddSymbolButton_Click"/>
+                    <Button x:Name="SettingsButton" Content="⚙" Style="{StaticResource ToolbarButtonStyle}" 
+                           ToolTip="Watchlist Settings" Click="SettingsButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Toolbar -->
+        <Border Grid.Row="1" Background="#2A2A2A" BorderBrush="#555" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search and Filter -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,5">
+                    <TextBox x:Name="SearchBox" Width="150" Height="25" Background="#444" Foreground="#E0E0E0" 
+                            BorderBrush="#666" BorderThickness="1" Padding="5,2"
+                            TextChanged="SearchBox_TextChanged" 
+                            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Resources>
+                            <Style TargetType="TextBox">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <VisualBrush Stretch="None" TileMode="None" AlignmentX="Left">
+                                                    <VisualBrush.Visual>
+                                                        <TextBlock Text="🔍 Search symbols..." FontStyle="Italic" 
+                                                                  Foreground="#888" Margin="2,0"/>
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <ComboBox x:Name="SortComboBox" Width="120" Height="25" Background="#444" Foreground="#E0E0E0"
+                             BorderBrush="#666" Margin="10,0,0,0" SelectionChanged="SortComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Symbol" Tag="Symbol"/>
+                        <ComboBoxItem Content="Price" Tag="LastPrice"/>
+                        <ComboBoxItem Content="Change" Tag="Change"/>
+                        <ComboBoxItem Content="Change %" Tag="ChangePercent" IsSelected="True"/>
+                        <ComboBoxItem Content="Volume" Tag="Volume"/>
+                    </ComboBox>
+
+                    <CheckBox x:Name="SortDescendingCheckBox" Content="↓" Margin="5,0" Foreground="#E0E0E0"
+                             Checked="SortOrderChanged" Unchecked="SortOrderChanged"/>
+                </StackPanel>
+
+                <!-- Watchlist Selector -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,5">
+                    <ComboBox x:Name="WatchlistSelector" Width="150" Height="25" Background="#444" 
+                             Foreground="#E0E0E0" BorderBrush="#666" SelectionChanged="WatchlistSelector_SelectionChanged"/>
+                    <Button x:Name="NewWatchlistButton" Content="New" Style="{StaticResource ToolbarButtonStyle}" 
+                           Margin="5,0,0,0" Click="NewWatchlistButton_Click"/>
+                    <Button x:Name="DeleteWatchlistButton" Content="Del" Style="{StaticResource ToolbarButtonStyle}" 
+                           Click="DeleteWatchlistButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Watchlist Grid -->
+        <DataGrid x:Name="WatchlistGrid" Grid.Row="2" 
+                 Background="#2E2E2E" Foreground="#E0E0E0"
+                 GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#444"
+                 HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False"
+                 AutoGenerateColumns="False" IsReadOnly="True"
+                 AlternatingRowBackground="#353535" RowBackground="#2E2E2E"
+                 BorderThickness="0" SelectionMode="Single"
+                 MouseDoubleClick="WatchlistGrid_MouseDoubleClick">
+            
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#333"/>
+                    <Setter Property="Foreground" Value="#E0E0E0"/>
+                    <Setter Property="BorderBrush" Value="#555"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="8,5"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Padding" Value="5,3"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#4A4A4A"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" Width="80" FontWeight="Bold"/>
+                
+                <DataGridTextColumn Header="Price" Binding="{Binding FormattedPrice}" Width="80">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Change" Binding="{Binding FormattedChange}" Width="80">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPositive}" Value="True">
+                                    <Setter Property="Foreground" Value="#00C851"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsNegative}" Value="True">
+                                    <Setter Property="Foreground" Value="#FF4444"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Change %" Binding="{Binding FormattedChangePercent}" Width="80">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPositive}" Value="True">
+                                    <Setter Property="Foreground" Value="#00C851"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsNegative}" Value="True">
+                                    <Setter Property="Foreground" Value="#FF4444"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Volume" Binding="{Binding FormattedVolume}" Width="100">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Trend" Binding="{Binding TrendIndicator}" Width="50">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource WatchlistItemStyle}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPositive}" Value="True">
+                                    <Setter Property="Foreground" Value="#00C851"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsNegative}" Value="True">
+                                    <Setter Property="Foreground" Value="#FF4444"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+
+            <DataGrid.ContextMenu>
+                <ContextMenu Background="#333" Foreground="#E0E0E0">
+                    <MenuItem Header="Open Chart" Click="OpenChart_Click">
+                        <MenuItem.Icon>
+                            <TextBlock Text="📈" FontSize="12"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="View Fundamentals" Click="ViewFundamentals_Click">
+                        <MenuItem.Icon>
+                            <TextBlock Text="📊" FontSize="12"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Remove from Watchlist" Click="RemoveSymbol_Click">
+                        <MenuItem.Icon>
+                            <TextBlock Text="❌" FontSize="12"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Copy Symbol" Click="CopySymbol_Click">
+                        <MenuItem.Icon>
+                            <TextBlock Text="📋" FontSize="12"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="3" Background="#333" BorderBrush="#555" BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,5">
+                    <TextBlock x:Name="StatusText" Text="Ready" FontSize="11" Foreground="#999"/>
+                    <TextBlock x:Name="LastUpdateText" Text="Last update: Never" FontSize="11" 
+                              Foreground="#666" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,5">
+                    <TextBlock x:Name="TotalValueText" Text="Total: $0.00" FontSize="11" 
+                              Foreground="#E0E0E0" Margin="0,0,15,0"/>
+                    <TextBlock x:Name="GainLossText" Text="P&amp;L: $0.00" FontSize="11" 
+                              Foreground="#999"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

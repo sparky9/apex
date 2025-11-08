@@ -1,0 +1,14 @@
+﻿<Application x:Class="ApexV2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Fallback Dark Theme for debugging -->
+                <ResourceDictionary Source="UI/Themes/Dark.xaml"/>
+                <!-- Theme dictionary injected at runtime by ThemeManager -->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

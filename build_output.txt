@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  ApexV2 -> c:\Users\Gaming\APEXv2\ApexV2\bin\Debug\net9.0-windows\ApexV2.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.56

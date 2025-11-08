@@ -1,0 +1,393 @@
+﻿<Window x:Class="ApexV2.Windows.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApexV2.Windows"
+        mc:Ignorable="d"
+        Title="APEX V2 - Settings" Height="600" Width="800"
+        MinHeight="500" MinWidth="700"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource Brush.WindowBackground}"
+        ShowInTaskbar="False">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Main Settings Content -->
+        <TabControl Grid.Row="0" Name="SettingsTabControl" 
+                   Background="{DynamicResource Brush.WindowBackground}" 
+                   BorderBrush="{DynamicResource Brush.Border}"
+                   Margin="10">
+            
+            <!-- Appearance Settings -->
+            <TabItem Header="Appearance" Background="{DynamicResource Brush.PanelBackground}" Foreground="{DynamicResource Brush.TextPrimary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Theme and Visual Settings" 
+                                  FontSize="16" FontWeight="Bold" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" Margin="0,0,0,15"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Theme:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" Name="ThemeComboBox" Height="25" Width="150" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Dark" IsSelected="True"/>
+                                <ComboBoxItem Content="Light"/>
+                                <ComboBoxItem Content="Professional Blue"/>
+                            </ComboBox>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Show Toolbar:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" Name="ShowToolbarCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Show Status Bar:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="2" Grid.Column="1" Name="ShowStatusBarCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Font Size:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <Slider Grid.Row="3" Grid.Column="1" Name="FontSizeSlider" Minimum="8" Maximum="24" Value="12" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Enable Animations:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="4" Grid.Column="1" Name="EnableAnimationsCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Show Tooltips:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="5" Grid.Column="1" Name="ShowTooltipsCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Accent Color:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" Name="AccentColorTextBox" Text="#4A9EFF" Width="100" Height="25" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Data Settings -->
+            <TabItem Header="Market Data" Background="{DynamicResource Brush.PanelBackground}" Foreground="{DynamicResource Brush.TextPrimary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Market Data Provider Settings" 
+                                  FontSize="16" FontWeight="Bold" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" Margin="0,0,0,15"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Default Provider:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" Name="DataProviderComboBox" Height="25" Width="150" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Yahoo Finance" IsSelected="True"/>
+                                <ComboBoxItem Content="Alpha Vantage"/>
+                                <ComboBoxItem Content="IEX Cloud"/>
+                                <ComboBoxItem Content="Polygon.io"/>
+                                <ComboBoxItem Content="Finnhub"/>
+                            </ComboBox>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Refresh Interval (ms):" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Name="RefreshIntervalTextBox" Text="5000" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="History Days:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Name="HistoryDaysTextBox" Text="365" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Enable Real-Time:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="3" Grid.Column="1" Name="EnableRealTimeCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Enable Caching:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="4" Grid.Column="1" Name="EnableCachingCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Cache Retention (days):" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Name="CacheRetentionTextBox" Text="30" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="API Keys:" 
+                                      FontSize="14" FontWeight="Bold" 
+                                      Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center" 
+                                      Grid.ColumnSpan="2" Margin="0,10,0,5"/>
+                            
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Alpha Vantage:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="8" Grid.Column="1" Name="AlphaVantageKeyTextBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="IEX Cloud:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="9" Grid.Column="1" Name="IexKeyTextBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="10" Grid.Column="0" Text="Polygon.io:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="10" Grid.Column="1" Name="PolygonKeyTextBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="11" Grid.Column="0" Text="Finnhub:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="11" Grid.Column="1" Name="FinnhubKeyTextBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Trading Settings -->
+            <TabItem Header="Trading" Background="{DynamicResource Brush.PanelBackground}" Foreground="{DynamicResource Brush.TextPrimary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Trading Provider and Safety Settings" 
+                                  FontSize="16" FontWeight="Bold" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" Margin="0,0,0,15"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Default Provider:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" Name="TradingProviderComboBox" Height="25" Width="150" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Alpaca Markets" IsSelected="True"/>
+                                <ComboBoxItem Content="Interactive Brokers"/>
+                                <ComboBoxItem Content="TD Ameritrade"/>
+                                <ComboBoxItem Content="TradeStation"/>
+                                <ComboBoxItem Content="Questrade"/>
+                            </ComboBox>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Paper Trading Mode:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" Name="PaperTradingCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Require Confirmation:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="2" Grid.Column="1" Name="RequireConfirmationCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Broker Credentials:" 
+                                      FontSize="14" FontWeight="Bold" 
+                                      Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center" 
+                                      Grid.ColumnSpan="2" Margin="0,10,0,5"/>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Alpaca API Key:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Name="AlpacaApiKeyTextBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Alpaca Secret Key:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <PasswordBox Grid.Row="6" Grid.Column="1" Name="AlpacaSecretKeyBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="IBKR Username:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Name="IbkrUsernameTextBox" Width="200" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="IBKR Password:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <PasswordBox Grid.Row="8" Grid.Column="1" Name="IbkrPasswordBox" Width="200" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="TD Ameritrade Key:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="9" Grid.Column="1" Name="TdAmeritradeKeyTextBox" Width="300" Height="25" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Safety Settings -->
+            <TabItem Header="Safety" Background="{DynamicResource Brush.PanelBackground}" Foreground="{DynamicResource Brush.TextPrimary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Risk Management and Safety Limits" 
+                                  FontSize="16" FontWeight="Bold" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" Margin="0,0,0,15"/>
+                        
+                        <Border Background="#8B0000" CornerRadius="5" Padding="10" Margin="0,0,0,15">
+                            <TextBlock Text="⚠️ These safety limits help protect your account from excessive losses. Use conservative values until you're experienced with the platform."
+                                      Foreground="White" TextWrapping="Wrap"/>
+                        </Border>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Max Position Size:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Name="MaxPositionSizeTextBox" Text="1000" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Max Daily Loss:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Name="MaxDailyLossTextBox" Text="500" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Max Order Value:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Name="MaxOrderValueTextBox" Text="5000" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Enable Stop Loss:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="3" Grid.Column="1" Name="EnableStopLossCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Default Stop Loss %:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Name="DefaultStopLossTextBox" Text="5" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Enable Position Sizing:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="5" Grid.Column="1" Name="EnablePositionSizingCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Risk Per Trade %:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" Name="RiskPerTradeTextBox" Text="2" Width="100" Height="25" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Performance Settings -->
+            <TabItem Header="Performance" Background="{DynamicResource Brush.PanelBackground}" Foreground="{DynamicResource Brush.TextPrimary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Performance and Resource Settings" 
+                                  FontSize="16" FontWeight="Bold" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" Margin="0,0,0,15"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Max Connections:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Name="MaxConnectionsTextBox" Text="5" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Request Timeout (ms):" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Name="RequestTimeoutTextBox" Text="30000" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Enable Multi-Threading:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="2" Grid.Column="1" Name="EnableMultiThreadingCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Max Memory (MB):" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Name="MaxMemoryTextBox" Text="512" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Enable Logging:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="4" Grid.Column="1" Name="EnableLoggingCheckBox" IsChecked="True" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Log Level:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="5" Grid.Column="1" Name="LogLevelComboBox" Height="25" Width="120" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Debug"/>
+                                <ComboBoxItem Content="Information" IsSelected="True"/>
+                                <ComboBoxItem Content="Warning"/>
+                                <ComboBoxItem Content="Error"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Advanced Settings -->
+            <TabItem Header="Advanced" Background="{DynamicResource Brush.PanelBackground}" Foreground="{DynamicResource Brush.TextPrimary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Advanced Technical Settings" 
+                                  FontSize="16" FontWeight="Bold" 
+                                  Foreground="{DynamicResource Brush.TextPrimary}" Margin="0,0,0,15"/>
+                        
+                        <Border Background="#444" CornerRadius="5" Padding="10" Margin="0,0,0,15">
+                            <TextBlock Text="⚠️ Advanced settings should only be modified by experienced users. Incorrect values may cause application instability."
+                                      Foreground="Orange" TextWrapping="Wrap"/>
+                        </Border>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Enable Debug Mode:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="0" Grid.Column="1" Name="EnableDebugCheckBox" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Enable Beta Features:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" Name="EnableBetaCheckBox" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Proxy Server:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Name="ProxyServerTextBox" Width="200" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Proxy Port:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Name="ProxyPortTextBox" Text="8080" Width="100" Height="25" HorizontalAlignment="Left"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Custom Data Path:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <DockPanel Grid.Row="4" Grid.Column="1">
+                                <Button DockPanel.Dock="Right" Content="Browse" Name="BrowseDataPathButton" Click="BrowseDataPath_Click" Margin="5,0,0,0"/>
+                                <TextBox Name="CustomDataPathTextBox" Height="25"/>
+                            </DockPanel>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Enable Telemetry:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="5" Grid.Column="1" Name="EnableTelemetryCheckBox" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" 
+                   HorizontalAlignment="Right" 
+                   Margin="10" Height="40">
+            <Button Name="ResetButton" Content="Reset to Defaults" 
+                   Width="120" Height="30" Margin="5" 
+                   Click="Reset_Click"/>
+            <Button Name="ImportButton" Content="Import Settings" 
+                   Width="120" Height="30" Margin="5" 
+                   Click="Import_Click"/>
+            <Button Name="ExportButton" Content="Export Settings" 
+                   Width="120" Height="30" Margin="5" 
+                   Click="Export_Click"/>
+            <Button Name="CancelButton" Content="Cancel" 
+                   Width="80" Height="30" Margin="5" 
+                   Click="Cancel_Click"/>
+            <Button Name="OkButton" Content="OK" 
+                   Width="80" Height="30" Margin="5" 
+                   IsDefault="True"
+                   Click="OK_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

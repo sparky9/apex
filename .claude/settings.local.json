@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet --version)",
+      "Bash(export PATH=\"$PATH:/home/mike/.dotnet\")",
+      "Bash(dotnet new:*)",
+      "Bash(rm:*)",
+      "Bash(dotnet build)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(dotnet restore:*)"
+    ],
+    "deny": []
+  }
+}
