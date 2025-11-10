@@ -119,7 +119,27 @@
                 <MenuItem Header="_Alerts" Click="Alerts_Click"/>
                 <MenuItem Header="_Pattern Recognition" Click="PatternRecognition_Click"/>
             </MenuItem>
-            
+
+            <!-- Backtesting Menu -->
+            <MenuItem Header="Back_testing">
+                <MenuItem Header="_Open Backtest Window..." Click="OpenBacktestWindow_Click" InputGestureText="Ctrl+B"/>
+                <MenuItem Header="_Build Strategy..." Click="BuildStrategy_Click" InputGestureText="Ctrl+Shift+B"/>
+                <MenuItem Header="_Generate Strategies..." Click="GenerateStrategies_Click"/>
+                <Separator/>
+                <MenuItem Header="_Strategy Library..." Click="OpenStrategyLibrary_Click"/>
+                <MenuItem Header="_Recent Backtests..." Click="RecentBacktests_Click"/>
+                <Separator/>
+                <MenuItem Header="_Batch Backtest..." Click="BatchBacktest_Click"/>
+                <MenuItem Header="_Walk-Forward Analysis..." Click="WalkForwardAnalysis_Click"/>
+                <MenuItem Header="_Monte Carlo Simulation..." Click="MonteCarloSimulation_Click"/>
+                <Separator/>
+                <MenuItem Header="_Compare Strategies..." Click="CompareStrategies_Click"/>
+                <MenuItem Header="_Benchmark Analysis..." Click="BenchmarkAnalysis_Click"/>
+                <Separator/>
+                <MenuItem Header="_Export Results..." Click="ExportBacktestResults_Click"/>
+                <MenuItem Header="_Backtesting Settings..." Click="BacktestingSettings_Click"/>
+            </MenuItem>
+
             <!-- Tools Menu -->
             <MenuItem Header="_Tools">
                 <MenuItem Header="_Settings..." Click="Settings_Click"/>
@@ -191,16 +211,23 @@
                 <Separator Margin="5,0"/>
                 
                 <!-- Trading Mode Toggle -->
-                <ToggleButton Name="TradingModeToggle" ToolTip="Toggle Paper/Live Trading" 
+                <ToggleButton Name="TradingModeToggle" ToolTip="Toggle Paper/Live Trading"
                              IsChecked="True" Checked="PaperTradingMode_Click" Unchecked="LiveTradingMode_Click">
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Name="TradingModeIndicator" Width="8" Height="8" Fill="Green" Margin="0,0,5,0"/>
                         <TextBlock Name="TradingModeText" Text="Paper Trading" Foreground="{DynamicResource Brush.TextPrimary}"/>
                     </StackPanel>
                 </ToggleButton>
-                
+
                 <Separator Margin="5,0"/>
-                
+
+                <!-- Backtesting -->
+                <Button Name="BacktestButton" ToolTip="Open Backtesting Window (Ctrl+B)" Click="OpenBacktestWindow_Click">
+                    <TextBlock Text="📊 Backtest" Foreground="{DynamicResource Brush.TextPrimary}"/>
+                </Button>
+
+                <Separator Margin="5,0"/>
+
                 <!-- Quick Symbol Search -->
                 <TextBlock Text="Symbol:" Foreground="{DynamicResource Brush.TextPrimary}" VerticalAlignment="Center" Margin="5,0"/>
                 <TextBox Name="QuickSymbolSearch" Width="100" Height="25" 

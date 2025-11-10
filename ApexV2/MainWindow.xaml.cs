@@ -1189,7 +1189,146 @@ public partial class MainWindow : Window
 
     private void PatternRecognition_Click(object sender, RoutedEventArgs e)
     {
-        System.Windows.MessageBox.Show("Pattern recognition will be implemented in Component #26 (Pattern Recognition)", 
+        System.Windows.MessageBox.Show("Pattern recognition will be implemented in Component #26 (Pattern Recognition)",
+                       "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    #endregion
+
+    #region Backtesting Menu Events
+    private void OpenBacktestWindow_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var backtestWindow = new Backtesting.UI.BacktestWindow();
+            backtestWindow.Owner = this;
+            backtestWindow.Show();
+            _logger.Info("Opened backtest window");
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Error opening backtest window: {ex.Message}");
+            System.Windows.MessageBox.Show($"Error opening backtest window: {ex.Message}",
+                           "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void BuildStrategy_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var builderWindow = new Backtesting.UI.StrategyBuilderWindow();
+            builderWindow.Owner = this;
+            if (builderWindow.ShowDialog() == true && builderWindow.BuiltStrategy != null)
+            {
+                // Strategy was built, could open backtest window with it
+                var backtestWindow = new Backtesting.UI.BacktestWindow();
+                backtestWindow.LoadStrategy(builderWindow.BuiltStrategy);
+                backtestWindow.Owner = this;
+                backtestWindow.Show();
+            }
+            _logger.Info("Opened strategy builder");
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Error opening strategy builder: {ex.Message}");
+            System.Windows.MessageBox.Show($"Error opening strategy builder: {ex.Message}",
+                           "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void GenerateStrategies_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var generationWindow = new Backtesting.UI.StrategyGenerationWindow();
+            generationWindow.Owner = this;
+            if (generationWindow.ShowDialog() == true && generationWindow.SelectedStrategy != null)
+            {
+                // Strategy was selected, open backtest window with it
+                var backtestWindow = new Backtesting.UI.BacktestWindow();
+                backtestWindow.LoadStrategy(generationWindow.SelectedStrategy);
+                backtestWindow.Owner = this;
+                backtestWindow.Show();
+            }
+            _logger.Info("Opened strategy generation");
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Error opening strategy generation: {ex.Message}");
+            System.Windows.MessageBox.Show($"Error opening strategy generation: {ex.Message}",
+                           "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void OpenStrategyLibrary_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var libraryWindow = new Backtesting.UI.StrategyLibraryWindow();
+            libraryWindow.Owner = this;
+            if (libraryWindow.ShowDialog() == true && libraryWindow.SelectedStrategy != null)
+            {
+                // Strategy was selected, open backtest window with it
+                var backtestWindow = new Backtesting.UI.BacktestWindow();
+                backtestWindow.LoadStrategy(libraryWindow.SelectedStrategy);
+                backtestWindow.Owner = this;
+                backtestWindow.Show();
+            }
+            _logger.Info("Opened strategy library");
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Error opening strategy library: {ex.Message}");
+            System.Windows.MessageBox.Show($"Error opening strategy library: {ex.Message}",
+                           "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void RecentBacktests_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Recent backtests history will be implemented soon",
+                       "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void BatchBacktest_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Batch backtesting (multiple symbols/strategies) will be implemented soon",
+                       "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void WalkForwardAnalysis_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Walk-forward analysis is already integrated in strategy evaluation",
+                       "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void MonteCarloSimulation_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Monte Carlo simulation is already integrated in strategy evaluation",
+                       "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void CompareStrategies_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Strategy comparison tool will be implemented soon",
+                       "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void BenchmarkAnalysis_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Benchmark analysis is already integrated in strategy evaluation",
+                       "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void ExportBacktestResults_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Export backtest results will be implemented soon",
+                       "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void BacktestingSettings_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.MessageBox.Show("Backtesting settings will be implemented soon",
                        "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
     }
     #endregion
