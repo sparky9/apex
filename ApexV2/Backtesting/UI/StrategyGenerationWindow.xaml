@@ -1,0 +1,183 @@
+<Window x:Class="ApexV2.Backtesting.UI.StrategyGenerationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Strategy Generation"
+        Height="650" Width="800"
+        MinHeight="500" MinWidth="700"
+        Background="{DynamicResource Brush.WindowBackground}"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#1E1E1E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="0,0,0,1" Padding="20,15">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Generate Trading Strategies" FontSize="20" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                <Border Background="#8B4789" CornerRadius="3" Margin="15,0,0,0" Padding="8,3" VerticalAlignment="Center">
+                    <TextBlock Text="Automated Discovery" FontSize="11" Foreground="White"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="30,20">
+
+                <!-- Generation Settings -->
+                <TextBlock Text="GENERATION SETTINGS" FontSize="13" FontWeight="SemiBold" Foreground="#CCCCCC" Margin="0,0,0,15"/>
+
+                <Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1" Padding="20" Margin="0,0,0,30" CornerRadius="4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Total Strategies -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Total Strategies:" FontSize="12" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox x:Name="TotalStrategiesTextBox" Text="100" Width="150" Background="#3C3C3C" Foreground="White"
+                                     BorderBrush="#555555" BorderThickness="1" Padding="8,6" FontSize="12"/>
+                            <TextBlock Text="(Recommended: 50-1000)" FontSize="11" Foreground="#666666" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <!-- Random Percentage -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Random Strategies:" FontSize="12" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox x:Name="RandomPercentageTextBox" Text="70" Width="150" Background="#3C3C3C" Foreground="White"
+                                     BorderBrush="#555555" BorderThickness="1" Padding="8,6" FontSize="12"/>
+                            <TextBlock Text="% (Exploration)" FontSize="11" Foreground="#666666" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <!-- Template Percentage -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Template-Based:" FontSize="12" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox x:Name="TemplatePercentageTextBox" Text="30" Width="150" Background="#3C3C3C" Foreground="White"
+                                     BorderBrush="#555555" BorderThickness="1" Padding="8,6" FontSize="12"/>
+                            <TextBlock Text="% (Proven Patterns)" FontSize="11" Foreground="#666666" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <!-- Max Rules -->
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Max Rules Per Strategy:" FontSize="12" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox x:Name="MaxEntryRulesTextBox" Text="3" Width="70" Background="#3C3C3C" Foreground="White"
+                                     BorderBrush="#555555" BorderThickness="1" Padding="8,6" FontSize="12"/>
+                            <TextBlock Text="Entry /" FontSize="11" Foreground="#666666" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                            <TextBox x:Name="MaxExitRulesTextBox" Text="2" Width="70" Background="#3C3C3C" Foreground="White"
+                                     BorderBrush="#555555" BorderThickness="1" Padding="8,6" FontSize="12"/>
+                            <TextBlock Text="Exit" FontSize="11" Foreground="#666666" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Indicators Selection -->
+                <TextBlock Text="ENABLED INDICATORS" FontSize="13" FontWeight="SemiBold" Foreground="#CCCCCC" Margin="0,0,0,15"/>
+
+                <Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1" Padding="20" Margin="0,0,0,30" CornerRadius="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Column 1 -->
+                        <StackPanel Grid.Column="0">
+                            <CheckBox x:Name="RsiCheckBox" Content="RSI" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="MacdCheckBox" Content="MACD" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="SmaCheckBox" Content="SMA" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="EmaCheckBox" Content="EMA" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="BbCheckBox" Content="Bollinger Bands" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="AtrCheckBox" Content="ATR" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                        </StackPanel>
+
+                        <!-- Column 2 -->
+                        <StackPanel Grid.Column="2">
+                            <CheckBox x:Name="StochCheckBox" Content="Stochastic" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="WilliamsRCheckBox" Content="Williams %R" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="CciCheckBox" Content="CCI" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="AdxCheckBox" Content="ADX" Foreground="White" FontSize="12" Margin="0,5" IsChecked="True"/>
+                            <CheckBox x:Name="CmfCheckBox" Content="CMF" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="ObvCheckBox" Content="OBV" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                        </StackPanel>
+
+                        <!-- Column 3 -->
+                        <StackPanel Grid.Column="4">
+                            <CheckBox x:Name="VwapCheckBox" Content="VWAP" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="WmaCheckBox" Content="WMA" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="DemaCheckBox" Content="DEMA" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="KeltnerCheckBox" Content="Keltner Channels" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                            <CheckBox x:Name="AdLineCheckBox" Content="AD Line" Foreground="White" FontSize="12" Margin="0,5" IsChecked="False"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Info Panel -->
+                <Border Background="#8B4789" BorderBrush="#A05FA0" BorderThickness="1" Padding="15" CornerRadius="4" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="💡 Generation Strategy" FontSize="13" FontWeight="SemiBold" Foreground="White" Margin="0,0,0,8"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="#EEEEEE" FontSize="11" LineHeight="18">
+                            <Run Text="Random strategies explore new combinations, while template-based strategies use proven patterns. The generator will create strategies with varying complexity and indicator combinations. Enable more indicators for broader exploration, or focus on specific indicators for targeted testing."/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Templates Info -->
+                <Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1" Padding="15" CornerRadius="4">
+                    <StackPanel>
+                        <TextBlock Text="INCLUDED TEMPLATES" FontSize="12" FontWeight="SemiBold" Foreground="#CCCCCC" Margin="0,0,0,10"/>
+                        <TextBlock Text="• RSI Mean Reversion - Buy oversold, sell overbought" FontSize="11" Foreground="#999999" Margin="0,3"/>
+                        <TextBlock Text="• MACD Trend Following - Follow crossover signals" FontSize="11" Foreground="#999999" Margin="0,3"/>
+                        <TextBlock Text="• Bollinger Band Mean Reversion - Trade at band extremes" FontSize="11" Foreground="#999999" Margin="0,3"/>
+                        <TextBlock Text="• Moving Average Crossover - Fast crosses slow MA" FontSize="11" Foreground="#999999" Margin="0,3"/>
+                        <TextBlock Text="• RSI + MACD Combo - Multi-indicator confirmation" FontSize="11" Foreground="#999999" Margin="0,3"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <Border Grid.Row="2" Background="#252526" BorderBrush="#3F3F46" BorderThickness="0,1,0,0" Padding="30,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="StatusText" Text="" FontSize="12" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                    <ProgressBar x:Name="ProgressBar" Width="200" Height="18" Margin="15,0,0,0" Visibility="Collapsed"
+                                 Foreground="#007ACC" Background="#3C3C3C" BorderThickness="0"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="Cancel" Background="#3C3C3C" Foreground="White"
+                        BorderThickness="0" Padding="20,10" FontSize="13" Click="CancelButton_Click"/>
+                <Button Grid.Column="3" x:Name="GenerateButton" Content="Generate Strategies" Background="#0E639C"
+                        Foreground="White" BorderThickness="0" Padding="25,10" FontSize="13" FontWeight="SemiBold"
+                        Click="GenerateButton_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
