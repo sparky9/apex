@@ -302,10 +302,8 @@ namespace ApexV2.Backtesting.UI
             // Display trades
             DisplayTrades();
 
-            // Hide equity curve placeholder
-            EquityCurvePlaceholder.Visibility = Visibility.Collapsed;
-
-            // TODO: Add actual chart rendering using LiveCharts or similar
+            // Create and display charts
+            DisplayCharts();
         }
 
         private void DisplayTrades()
@@ -347,6 +345,46 @@ namespace ApexV2.Backtesting.UI
                 ExitReason.EndOfData => "End of Data",
                 _ => "Unknown"
             };
+        }
+
+        private void DisplayCharts()
+        {
+            if (_latestResults == null)
+                return;
+
+            try
+            {
+                // Equity Curve Chart
+                EquityCurvePlaceholder.Visibility = Visibility.Collapsed;
+                var equityCurveChart = ChartHelper.CreateEquityCurveChart(
+                    _latestResults,
+                    double.Parse(InitialCapitalTextBox.Text));
+                EquityCurveContainer.Child = equityCurveChart;
+
+                // Drawdown Chart
+                DrawdownPlaceholder.Visibility = Visibility.Collapsed;
+                var drawdownChart = ChartHelper.CreateDrawdownChart(_latestResults);
+                DrawdownChartContainer.Child = drawdownChart;
+
+                // Returns Distribution Histogram
+                ReturnsPlaceholder.Visibility = Visibility.Collapsed;
+                var returnsChart = ChartHelper.CreateReturnsHistogram(_latestResults.Trades);
+                ReturnsChartContainer.Child = returnsChart;
+
+                // Trade Scatter Plot
+                ScatterPlaceholder.Visibility = Visibility.Collapsed;
+                var scatterChart = ChartHelper.CreateTradeScatterPlot(_latestResults.Trades);
+                ScatterChartContainer.Child = scatterChart;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creating charts: {ex.Message}");
+                // If chart creation fails, show placeholders again
+                EquityCurvePlaceholder.Visibility = Visibility.Visible;
+                DrawdownPlaceholder.Visibility = Visibility.Visible;
+                ReturnsPlaceholder.Visibility = Visibility.Visible;
+                ScatterPlaceholder.Visibility = Visibility.Visible;
+            }
         }
 
         #endregion

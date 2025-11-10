@@ -496,27 +496,42 @@
                                 <TextBlock Text="TRADE DISTRIBUTION" FontSize="14" FontWeight="SemiBold"
                                            Foreground="#CCCCCC" Margin="0,0,0,15"/>
 
-                                <!-- Drawdown Chart Placeholder -->
+                                <!-- Drawdown Chart -->
                                 <Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1"
                                         Padding="20" CornerRadius="4" Margin="0,0,0,20" Height="250">
                                     <Grid>
                                         <TextBlock Text="Drawdown Chart" FontSize="16" FontWeight="SemiBold"
                                                    Foreground="White" VerticalAlignment="Top"/>
-                                        <TextBlock Text="Run a backtest to see drawdown analysis"
+                                        <TextBlock x:Name="DrawdownPlaceholder" Text="Run a backtest to see drawdown analysis"
                                                    FontSize="14" Foreground="#666666" HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"/>
+                                        <Border x:Name="DrawdownChartContainer"/>
                                     </Grid>
                                 </Border>
 
-                                <!-- Returns Distribution Placeholder -->
+                                <!-- Returns Distribution -->
                                 <Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1"
-                                        Padding="20" CornerRadius="4" Height="250">
+                                        Padding="20" CornerRadius="4" Margin="0,0,0,20" Height="250">
                                     <Grid>
                                         <TextBlock Text="Returns Distribution" FontSize="16" FontWeight="SemiBold"
                                                    Foreground="White" VerticalAlignment="Top"/>
-                                        <TextBlock Text="Run a backtest to see returns distribution"
+                                        <TextBlock x:Name="ReturnsPlaceholder" Text="Run a backtest to see returns distribution"
                                                    FontSize="14" Foreground="#666666" HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"/>
+                                        <Border x:Name="ReturnsChartContainer"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Trade Scatter Plot -->
+                                <Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1"
+                                        Padding="20" CornerRadius="4" Height="250">
+                                    <Grid>
+                                        <TextBlock Text="Trade Scatter Plot (Return vs Duration)" FontSize="16" FontWeight="SemiBold"
+                                                   Foreground="White" VerticalAlignment="Top"/>
+                                        <TextBlock x:Name="ScatterPlaceholder" Text="Run a backtest to see trade distribution"
+                                                   FontSize="14" Foreground="#666666" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                        <Border x:Name="ScatterChartContainer"/>
                                     </Grid>
                                 </Border>
                             </StackPanel>
