@@ -8,6 +8,7 @@ using System.Windows.Media;
 using ApexV2.Backtesting.Engine;
 using ApexV2.Backtesting.Models;
 using ApexV2.Backtesting.StrategyGeneration;
+using ApexV2.Backtesting.Database;
 
 namespace ApexV2.Backtesting.UI
 {
@@ -17,10 +18,13 @@ namespace ApexV2.Backtesting.UI
         private BacktestResults _latestResults;
         private PerformanceMetrics _latestMetrics;
         private Stopwatch _backtestTimer;
+        private BacktestingDataService _dataService;
+        private int? _savedStrategyId;
 
         public BacktestWindow()
         {
             InitializeComponent();
+            _dataService = new BacktestingDataService();
             InitializeDefaults();
         }
 
@@ -94,6 +98,180 @@ namespace ApexV2.Backtesting.UI
                 _currentStrategy = builderWindow.BuiltStrategy;
                 UpdateStrategyDisplay();
             }
+        }
+
+        private void SaveStrategyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentStrategy == null)
+            {
+                MessageBox.Show("No strategy to save. Please select or build a strategy first.", "No Strategy",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                // Simple input dialog for description
+                var description = PromptForInput("Save Strategy", "Enter a description for this strategy (optional):");
+
+                // Save strategy to database
+                var entity = _dataService.SaveStrategy(_currentStrategy, description);
+                _savedStrategyId = entity.Id;
+
+                MessageBox.Show($"Strategy '{_currentStrategy.Name}' saved successfully!", "Strategy Saved",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // If we have backtest results, offer to save them too
+                if (_latestResults != null && _latestMetrics != null)
+                {
+                    var result = MessageBox.Show("Would you like to save the backtest results as well?",
+                        "Save Results", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        SaveBacktestResults();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving strategy: {ex.Message}", "Save Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SaveBacktestResults()
+        {
+            if (_savedStrategyId == null)
+            {
+                MessageBox.Show("Please save the strategy first before saving results.", "Strategy Not Saved",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (_latestResults == null || _latestMetrics == null)
+            {
+                MessageBox.Show("No backtest results to save. Run a backtest first.", "No Results",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                var parameters = new BacktestParameters
+                {
+                    InitialCapital = double.Parse(InitialCapitalTextBox.Text),
+                    PositionSize = double.Parse(PositionSizeTextBox.Text),
+                    Commission = double.Parse(CommissionTextBox.Text) / 100.0,
+                    Slippage = double.Parse(SlippageTextBox.Text) / 100.0
+                };
+
+                var notes = PromptForInput("Save Results", "Enter notes for these results (optional):");
+
+                _dataService.SaveBacktestResults(
+                    _savedStrategyId.Value,
+                    SymbolTextBox.Text,
+                    StartDatePicker.SelectedDate.Value,
+                    EndDatePicker.SelectedDate.Value,
+                    parameters,
+                    _latestResults,
+                    _latestMetrics,
+                    notes);
+
+                MessageBox.Show("Backtest results saved successfully!", "Results Saved",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving results: {ex.Message}", "Save Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private string PromptForInput(string title, string message)
+        {
+            // Simple input dialog
+            var dialog = new Window
+            {
+                Title = title,
+                Width = 450,
+                Height = 200,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = this,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                WindowStyle = WindowStyle.ToolWindow
+            };
+
+            var grid = new Grid { Margin = new Thickness(20) };
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(15) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            var label = new TextBlock
+            {
+                Text = message,
+                Foreground = Brushes.White,
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 13
+            };
+            Grid.SetRow(label, 0);
+            grid.Children.Add(label);
+
+            var textBox = new TextBox
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3C3C3C")),
+                Foreground = Brushes.White,
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#555555")),
+                Padding = new Thickness(8, 6),
+                FontSize = 12
+            };
+            Grid.SetRow(textBox, 2);
+            grid.Children.Add(textBox);
+
+            var buttonPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+
+            var okButton = new Button
+            {
+                Content = "OK",
+                Width = 80,
+                Height = 32,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#007ACC")),
+                Foreground = Brushes.White,
+                BorderThickness = new Thickness(0),
+                Margin = new Thickness(0, 0, 10, 0)
+            };
+            okButton.Click += (s, e) => { dialog.DialogResult = true; dialog.Close(); };
+            buttonPanel.Children.Add(okButton);
+
+            var cancelButton = new Button
+            {
+                Content = "Cancel",
+                Width = 80,
+                Height = 32,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3C3C3C")),
+                Foreground = Brushes.White,
+                BorderThickness = new Thickness(0)
+            };
+            cancelButton.Click += (s, e) => { dialog.DialogResult = false; dialog.Close(); };
+            buttonPanel.Children.Add(cancelButton);
+
+            Grid.SetRow(buttonPanel, 4);
+            grid.Children.Add(buttonPanel);
+
+            dialog.Content = grid;
+
+            if (dialog.ShowDialog() == true)
+            {
+                return textBox.Text;
+            }
+
+            return string.Empty;
         }
 
         #endregion

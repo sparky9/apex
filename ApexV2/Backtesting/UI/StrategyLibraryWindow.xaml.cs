@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ApexV2.Backtesting.StrategyGeneration;
+using ApexV2.Backtesting.Database;
+using ApexV2.Backtesting.Models;
 
 namespace ApexV2.Backtesting.UI
 {
@@ -13,21 +15,47 @@ namespace ApexV2.Backtesting.UI
         public Strategy SelectedStrategy { get; private set; }
         private List<Strategy> _allStrategies = new List<Strategy>();
         private List<Strategy> _filteredStrategies = new List<Strategy>();
+        private BacktestingDataService _dataService;
 
         public StrategyLibraryWindow()
         {
             InitializeComponent();
+            _dataService = new BacktestingDataService();
+            _dataService.InitializeBuiltInTemplates();
             LoadStrategies();
         }
 
         private void LoadStrategies()
         {
-            // TODO: Load strategies from database or file system
-            // For now, create some sample strategies
-            _allStrategies = CreateSampleStrategies();
-            _filteredStrategies = new List<Strategy>(_allStrategies);
+            try
+            {
+                // Load strategies from database
+                var entities = _dataService.LoadAllStrategies();
 
-            UpdateStrategyDisplay();
+                if (entities.Count == 0)
+                {
+                    // If no saved strategies, show sample/template strategies
+                    _allStrategies = CreateSampleStrategies();
+                }
+                else
+                {
+                    // Convert entities to Strategy models
+                    _allStrategies = entities.Select(e => _dataService.EntityToStrategy(e)).ToList();
+                }
+
+                _filteredStrategies = new List<Strategy>(_allStrategies);
+                UpdateStrategyDisplay();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading strategies: {ex.Message}", "Database Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Fallback to sample strategies
+                _allStrategies = CreateSampleStrategies();
+                _filteredStrategies = new List<Strategy>(_allStrategies);
+                UpdateStrategyDisplay();
+            }
         }
 
         private List<Strategy> CreateSampleStrategies()
@@ -40,11 +68,11 @@ namespace ApexV2.Backtesting.UI
             {
                 Name = "RSI Mean Reversion (14, 30/70)",
                 Description = "Buy when RSI crosses below 30, sell when it crosses above 70",
-                StrategyType = StrategyType.MeanReversion,
                 EntryRules = new List<StrategyRule>
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.MeanReversion,
                         IndicatorName = "RSI",
                         Condition = RuleCondition.Oversold,
                         Parameters = new Dictionary<string, object> { { "window", 14 }, { "oversold", 30.0 } }
@@ -54,13 +82,14 @@ namespace ApexV2.Backtesting.UI
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.MeanReversion,
                         IndicatorName = "RSI",
                         Condition = RuleCondition.Overbought,
                         Parameters = new Dictionary<string, object> { { "window", 14 }, { "overbought", 70.0 } }
                     }
                 },
                 GenerationMethod = "Template",
-                CreatedDate = DateTime.Now.AddDays(-10)
+                CreatedAt = DateTime.Now.AddDays(-10)
             });
 
             // MACD Trend Following
@@ -68,11 +97,11 @@ namespace ApexV2.Backtesting.UI
             {
                 Name = "MACD Trend Following (12, 26, 9)",
                 Description = "Buy on MACD bullish crossover, sell on bearish crossover",
-                StrategyType = StrategyType.TrendFollowing,
                 EntryRules = new List<StrategyRule>
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.TrendFollowing,
                         IndicatorName = "MACD",
                         Condition = RuleCondition.IndicatorCrossAbove,
                         Parameters = new Dictionary<string, object>
@@ -85,6 +114,7 @@ namespace ApexV2.Backtesting.UI
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.TrendFollowing,
                         IndicatorName = "MACD",
                         Condition = RuleCondition.IndicatorCrossBelow,
                         Parameters = new Dictionary<string, object>
@@ -94,7 +124,7 @@ namespace ApexV2.Backtesting.UI
                     }
                 },
                 GenerationMethod = "Template",
-                CreatedDate = DateTime.Now.AddDays(-8)
+                CreatedAt = DateTime.Now.AddDays(-8)
             });
 
             // Bollinger Band Mean Reversion
@@ -102,11 +132,11 @@ namespace ApexV2.Backtesting.UI
             {
                 Name = "Bollinger Band Mean Reversion (20, 2.0)",
                 Description = "Buy at lower band, sell at upper band",
-                StrategyType = StrategyType.MeanReversion,
                 EntryRules = new List<StrategyRule>
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.MeanReversion,
                         IndicatorName = "BB",
                         Condition = RuleCondition.PriceBelow,
                         Parameters = new Dictionary<string, object> { { "window", 20 }, { "std_dev", 2.0 } }
@@ -116,13 +146,14 @@ namespace ApexV2.Backtesting.UI
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.MeanReversion,
                         IndicatorName = "BB",
                         Condition = RuleCondition.PriceAbove,
                         Parameters = new Dictionary<string, object> { { "window", 20 }, { "std_dev", 2.0 } }
                     }
                 },
                 GenerationMethod = "Template",
-                CreatedDate = DateTime.Now.AddDays(-5)
+                CreatedAt = DateTime.Now.AddDays(-5)
             });
 
             // Moving Average Crossover
@@ -130,11 +161,11 @@ namespace ApexV2.Backtesting.UI
             {
                 Name = "Moving Average Crossover (20/50)",
                 Description = "Buy when fast MA crosses above slow MA",
-                StrategyType = StrategyType.TrendFollowing,
                 EntryRules = new List<StrategyRule>
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.TrendFollowing,
                         IndicatorName = "EMA",
                         Condition = RuleCondition.PriceCrossAbove,
                         Parameters = new Dictionary<string, object> { { "window", 20 } }
@@ -144,13 +175,14 @@ namespace ApexV2.Backtesting.UI
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.TrendFollowing,
                         IndicatorName = "EMA",
                         Condition = RuleCondition.PriceCrossBelow,
                         Parameters = new Dictionary<string, object> { { "window", 50 } }
                     }
                 },
                 GenerationMethod = "Template",
-                CreatedDate = DateTime.Now.AddDays(-3)
+                CreatedAt = DateTime.Now.AddDays(-3)
             });
 
             // Momentum Strategy
@@ -158,11 +190,11 @@ namespace ApexV2.Backtesting.UI
             {
                 Name = "Stochastic Momentum",
                 Description = "Buy oversold stochastic with rising momentum",
-                StrategyType = StrategyType.Momentum,
                 EntryRules = new List<StrategyRule>
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.Momentum,
                         IndicatorName = "STOCH",
                         Condition = RuleCondition.Oversold,
                         Parameters = new Dictionary<string, object>
@@ -175,6 +207,7 @@ namespace ApexV2.Backtesting.UI
                 {
                     new StrategyRule
                     {
+                        Type = RuleType.Momentum,
                         IndicatorName = "STOCH",
                         Condition = RuleCondition.Overbought,
                         Parameters = new Dictionary<string, object>
@@ -184,10 +217,24 @@ namespace ApexV2.Backtesting.UI
                     }
                 },
                 GenerationMethod = "Template",
-                CreatedDate = DateTime.Now.AddDays(-1)
+                CreatedAt = DateTime.Now.AddDays(-1)
             });
 
             return strategies;
+        }
+
+        private string GetStrategyType(Strategy strategy)
+        {
+            if (strategy.EntryRules == null || strategy.EntryRules.Count == 0)
+                return "Unknown";
+
+            // Get the most common rule type from entry rules
+            var ruleType = strategy.EntryRules
+                .GroupBy(r => r.Type)
+                .OrderByDescending(g => g.Count())
+                .First().Key;
+
+            return ruleType.ToString();
         }
 
         private void UpdateStrategyDisplay()
@@ -250,16 +297,17 @@ namespace ApexV2.Backtesting.UI
             Grid.SetColumn(nameText, 0);
             headerGrid.Children.Add(nameText);
 
+            var strategyType = GetStrategyType(strategy);
             var typeBadge = new Border
             {
-                Background = GetTypeColor(strategy.StrategyType),
+                Background = GetTypeColor(strategyType),
                 CornerRadius = new CornerRadius(3),
                 Padding = new Thickness(8, 3),
                 VerticalAlignment = VerticalAlignment.Center
             };
             var typeText = new TextBlock
             {
-                Text = strategy.StrategyType.ToString(),
+                Text = strategyType,
                 FontSize = 10,
                 Foreground = Brushes.White
             };
@@ -304,7 +352,7 @@ namespace ApexV2.Backtesting.UI
 
             var dateLabel = new TextBlock
             {
-                Text = $"Created: {strategy.CreatedDate:MMM dd, yyyy}",
+                Text = strategy.CreatedAt.HasValue ? $"Created: {strategy.CreatedAt.Value:MMM dd, yyyy}" : "Created: Recently",
                 FontSize = 11,
                 Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#666666"))
             };
@@ -337,14 +385,14 @@ namespace ApexV2.Backtesting.UI
             return card;
         }
 
-        private Brush GetTypeColor(StrategyType type)
+        private Brush GetTypeColor(string type)
         {
             return type switch
             {
-                StrategyType.TrendFollowing => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0E639C")),
-                StrategyType.MeanReversion => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B4789")),
-                StrategyType.Momentum => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4EC9B0")),
-                StrategyType.Breakout => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CE9178")),
+                "TrendFollowing" or "Trend Following" => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0E639C")),
+                "MeanReversion" or "Mean Reversion" => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B4789")),
+                "Momentum" => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4EC9B0")),
+                "VolatilityBreakout" or "Breakout" => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CE9178")),
                 _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#666666"))
             };
         }
@@ -403,7 +451,7 @@ namespace ApexV2.Backtesting.UI
                 if (!string.IsNullOrEmpty(selectedType))
                 {
                     _filteredStrategies = _filteredStrategies.Where(s =>
-                        s.StrategyType.ToString() == selectedType
+                        GetStrategyType(s) == selectedType || GetStrategyType(s).Replace(" ", "") == selectedType
                     ).ToList();
                 }
             }
