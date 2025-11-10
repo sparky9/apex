@@ -100,6 +100,21 @@ namespace ApexV2.Backtesting.UI
             }
         }
 
+        private void LiveMonitorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentStrategy == null)
+            {
+                MessageBox.Show("Please select or build a strategy first.", "No Strategy",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Open real-time monitor window
+            var monitorWindow = new RealTimeMonitorWindow();
+            monitorWindow.SetStrategy(_currentStrategy);
+            monitorWindow.Show();
+        }
+
         private void SaveStrategyButton_Click(object sender, RoutedEventArgs e)
         {
             if (_currentStrategy == null)
